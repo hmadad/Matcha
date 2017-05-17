@@ -29,16 +29,35 @@
       </li>
     </ul>
     <ul class="navbar-nav pull-right">
-      <li class="nav-item">
-        <a class="nav-link" href="/users/sign_in">Connexion</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/sign_up">Inscription</a>
-      </li>
+      <% if session[:auth].nil? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/sign_in">Connexion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/sign_up">Inscription</a>
+        </li>
+      <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/sign_out">Deconnexion</a>
+          </li>
+      <% end %>
     </ul>
   </div>
 </nav>
 <div class="container">
+  <% if defined? flash %>
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= value %>
+        </div>
+    <% end %>
+  <% end %>
   <%= yield %>
 </div>
 <nav class="navbar fixed-bottom navbar-light bg-faded">
