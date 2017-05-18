@@ -1,0 +1,42 @@
+<h1>Profile </h1>
+<hr>
+<form action="" method="POST">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" name="email" class="form-control" aria-describedby="emailHelp" value="<%= @result[0]["email"] %>">
+  </div>
+  <div class="form-group">
+    <label for="username">Nom d'utilisateur</label>
+    <input type="text" name="username" class="form-control" value="<%= @result[0]["username"]%>">
+  </div>
+  <div class="form-group">
+    <label for="firstname">Prenom</label>
+    <input type="text" name="firstname" class="form-control" value="<%= @result[0]["firstname"]%>">
+  </div>
+  <div class="form-group">
+    <label for="lastname">Nom</label>
+    <input type="text" name="lastname" class="form-control" value="<%= @result[0]["lastname"]%>">
+  </div>
+  <div class="form-group">
+    <label for="lastname">Sexe</label>
+    <select class="form-control" name="sexe">
+      <option value="" disabled selected>Sexe</option>
+      <option value="M">M</option>
+      <option value="F">F</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="lastname">Orientation</label>
+    <select class="form-control" name="orientation">
+      <option value="" disabled selected>Orientation</option>
+      <option value="M">Homme</option>
+      <option value="F">Femme</option>
+      <option value="B">Les deux</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="lastname">Biographie</label>
+    <textarea name="bio" class="form-control" placeholder="Biographie"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
