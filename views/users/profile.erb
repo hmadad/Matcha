@@ -1,42 +1,84 @@
 <h1>Profile </h1>
 <hr>
-<form action="" method="POST">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" name="email" class="form-control" aria-describedby="emailHelp" value="<%= @result[0]["email"] %>">
+<form action="" method="POST" enctype="multipart/form-data">
+  <div class="row">
+    <div class="left col-md-8" style="margin-top: 20px">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Adresse email<span style="color: red">*</span></label>
+        <input type="email" name="email" class="form-control" aria-describedby="emailHelp" value="<%= @result[0]["email"] %>">
+      </div>
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur<span style="color: red">*</span></label>
+        <input type="text" name="username" class="form-control" value="<%= @result[0]["username"]%>">
+      </div>
+    </div>
+    <div class="right col-md-4">
+      <img class="rounded mx-auto d-block" src="<%= @result[0]["profile"] %>" alt="" width="200" height="200">
+      <input type="file" name="profile" class="form-control">
+    </div>
   </div>
   <div class="form-group">
-    <label for="username">Nom d'utilisateur</label>
-    <input type="text" name="username" class="form-control" value="<%= @result[0]["username"]%>">
-  </div>
-  <div class="form-group">
-    <label for="firstname">Prenom</label>
+    <label for="firstname">Prenom<span style="color: red">*</span></label>
     <input type="text" name="firstname" class="form-control" value="<%= @result[0]["firstname"]%>">
   </div>
   <div class="form-group">
-    <label for="lastname">Nom</label>
+    <label for="lastname">Nom<span style="color: red">*</span></label>
     <input type="text" name="lastname" class="form-control" value="<%= @result[0]["lastname"]%>">
   </div>
   <div class="form-group">
     <label for="lastname">Sexe</label>
     <select class="form-control" name="sexe">
-      <option value="" disabled selected>Sexe</option>
-      <option value="M">M</option>
-      <option value="F">F</option>
+      <option value="" disabled <%= "selected" if @result[0]["sexe"].nil? %>>Sexe</option>
+      <option value="Homme" <%= "selected" if @result[0]["sexe"] == "Homme" %>>Homme</option>
+      <option value="Femme" <%= "selected" if @result[0]["sexe"] == "Femme" %>>Femme</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="lastname">Orientation</label>
+    <label for="orientation">Orientation</label>
     <select class="form-control" name="orientation">
-      <option value="" disabled selected>Orientation</option>
-      <option value="M">Homme</option>
-      <option value="F">Femme</option>
-      <option value="B">Les deux</option>
+      <option value="" disabled <%= "selected" if @result[0]["orientation"].nil? || @result[0]["orientation"].empty? %>>Orientation</option>
+      <option value="Homme" <%= "selected" if @result[0]["orientation"] == "Homme" %>>Homme</option>
+      <option value="Femme" <%= "selected" if @result[0]["orientation"] == "Femme" %>>Femme</option>
+      <option value="Both" <%= "selected" if @result[0]["orientation"] == "Both" %>>Les deux</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="lastname">Biographie</label>
-    <textarea name="bio" class="form-control" placeholder="Biographie"></textarea>
+    <label for="bio">Biographie</label>
+    <textarea name="bio" class="form-control" placeholder="Biographie"><%= @result[0]["bio"]%></textarea>
+  </div>
+  <div class="form-group">
+    <label for="interest">Interêts (#tags)</label>
+    <textarea name="interest" class="form-control" placeholder="Interêts: (Ex: #interet, #exemple, ...)" rows="2"><%= @result[0]["interest"]%></textarea>
+  </div>
+  <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="interest">Photo 2</label>
+          <img class="rounded mx-auto d-block" src="<%= @result[0]["image2"] %>" alt="" width="200" height="200">
+          <input type="file" name="image2" class="form-control">
+        </div>
+      </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="interest">Photo 3</label>
+        <img class="rounded mx-auto d-block" src="<%= @result[0]["image3"] %>" alt="" width="200" height="200">
+        <input type="file" name="image3" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="interest">Photo 4</label>
+        <img class="rounded mx-auto d-block" src="<%= @result[0]["image4"] %>" alt="" width="200" height="200">
+        <input type="file" name="image4" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="interest">Photo 5</label>
+        <img class="rounded mx-auto d-block" src="<%= @result[0]["image5"] %>" alt="" width="200" height="200">
+        <input type="file" name="image5" class="form-control">
+      </div>
+    </div>
   </div>
   <button type="submit" class="btn btn-primary">Modifier</button>
 </form>

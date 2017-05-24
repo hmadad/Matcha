@@ -1,4 +1,19 @@
 <h1>Bienvenue sur Matcha</h1>
 <% if !session[:auth].nil? %>
     <p>vous êtes connecté en tant que: <%= session[:auth]["username"] %></p>
+    <div class="row">
+      <% @result.each do |row| %>
+          <div class="card" style="width: 20rem;">
+            <div class="img-cadre" style="width: 100%; background-color: black">
+              <img class="rounded mx-auto d-block" src="<%= @result[0]["profile"] %>" alt="" width="200" height="200">
+            </div>
+            <div class="card-block">
+              <h4 class="card-title"><%= @result[0]["username"] %></h4>
+              <p class="card-text"><%= @result[0]["bio"] %></p>
+              <p><%= @result[0]["interest"] %></p>
+              <a href="#" class="btn btn-success">Like</a>
+            </div>
+          </div>
+      <% end %>
+    </div>
 <% end %>
