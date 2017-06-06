@@ -1,0 +1,32 @@
+<% if @result %>
+    <div class="row" style="margin-top: 50px">
+      <div class="col-md-9">
+        <h2><%= @result["username"] %></h2>
+        <hr>
+        <p>Nom: <%= @result["firstname"] %></p>
+<p>Prenom: <%= @result["lastname"] %></p>
+<p>Age: <%= @result["age"] %></p>
+<p>Sexe: <%= @result["sexe"] %></p>
+<p>Recherche: <%= @result["orientation"] %></p>
+</div>
+<div class="col-md-3">
+  <img class="rounded mx-auto d-block" src="<%= @result["profile"] %>" alt="" style="width: 400px; height: 380px">
+</div>
+<div class="col-md-12">
+  <p>Biographie: <%= @result["bio"] %></p>
+</div>
+      <% if isLiked?(@result["id"]) %>
+          <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
+            <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+          </form>
+      <% else %>
+          <form action="/likes/like/<%= @result["id"] %>" method="POST">
+            <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+          </form>
+      <% end %>
+
+</div>
+
+<% else %>
+<h2>Aucun utilisateur avec cett id</h2>
+<% end %>

@@ -1,35 +1,5 @@
 class Matcha < Sinatra::Application
 
-  @@client.query("CREATE TABLE IF NOT EXISTS `users`
-					   (
-						 `id` int(11) NOT NULL AUTO_INCREMENT,
-						 `email` varchar(255) NOT NULL,
-						 `username` varchar(255) NOT NULL,
-						 `firstname` varchar(255) NOT NULL,
-						 `lastname` varchar(255) NOT NULL,
-						 `password` varchar(255) NOT NULL,
-						 `sexe` varchar(50) DEFAULT NULL,
-						 `orientation` varchar(50) DEFAULT NULL,
-						 `bio` longtext DEFAULT NULL,
-						 `interest` longtext DEFAULT NULL,
-						 `liked` longtext DEFAULT NULL,
-						 `score` integer NOT NULL DEFAULT '0',
-						 `created_at` DATETIME NOT NULL,
-						 `confirmation_date` DATETIME,
-						 `token` varchar(255) DEFAULT NULL,
-						 `remember_token` varchar(255) DEFAULT NULL,
-             `reset_date` DATETIME,
-						 `image` text DEFAULT NULL,
-						 `mode` integer NOT NULL DEFAULT '0',
-						 `ip` varchar(255) DEFAULT NULL,
-             `profile` longtext DEFAULT NULL,
-             `image2` longtext DEFAULT NULL,
-             `image3` longtext DEFAULT NULL,
-             `image4` longtext DEFAULT NULL,
-             `image5` longtext DEFAULT NULL,
-						 PRIMARY KEY (`id`)
-					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
-
   # ====================================================  GET PAGE  ====================================================
   get "/users/sign_in" do
     if isConnected?

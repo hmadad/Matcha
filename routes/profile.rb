@@ -1,28 +1,9 @@
 class Matcha < Sinatra::Application
 
-  @@client.query("CREATE TABLE IF NOT EXISTS `tags`
-					   (
-						 `id` int(11) NOT NULL AUTO_INCREMENT,
-						 `user_id` int(11) NOT NULL,
-						 `name` varchar(255) NOT NULL,
-						 `created_at` DATETIME NOT NULL,
-						 PRIMARY KEY (`id`)
-					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
 
 
-  def verify_extensions(image)
-    if !image
-      return 1
-    end
-    extension = ['jpeg', 'jpg', 'png']
-    tab = image.to_s.split(".")
-    if tab.count > 2
-      return 0
-    elsif extension.include? tab[1] == false
-      return 0
-    end
-    return 1
-  end
+
+
 
   # ====================================================  GET PAGE  ====================================================
   get "/users/profile" do
@@ -36,8 +17,18 @@ class Matcha < Sinatra::Application
     erb :"users/profile"
   end
 
-  get "/test" do
-    "SELECT * FROM users WHERE sexe = '#{session[:auth]['orientation']}'"
+  get "/users/profile/:id" do
+    @result = []
+    @@client.query("SELECT * FROM users WHERE id = '#{params[:id]}'").each do |row|
+      @result << row
+    end
+    @result = @result[0]
+      erb :"users/user"
+  end
+
+  get "/test/:id" do
+    lol = location
+    lol.inspect
   end
 
   # ====================================================  POST PAGE  ===================================================

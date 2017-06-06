@@ -28,7 +28,7 @@
   <div class="form-group">
     <label for="lastname">Sexe</label>
     <select class="form-control" name="sexe">
-      <option value="" disabled <%= "selected" if @result[0]["sexe"].nil? %>>Sexe</option>
+      <option value="" disabled <%= "selected" if @result[0]["sexe"].nil? || @result[0]["sexe"].empty? %>>Sexe</option>
       <option value="Homme" <%= "selected" if @result[0]["sexe"] == "Homme" %>>Homme</option>
       <option value="Femme" <%= "selected" if @result[0]["sexe"] == "Femme" %>>Femme</option>
     </select>
@@ -50,6 +50,37 @@
     <label for="interest">Interêts (#tags)</label>
     <textarea name="interest" class="form-control" placeholder="Interêts: (Ex: #interet, #exemple, ...)" rows="2"><%= @result[0]["interest"]%></textarea>
   </div>
+  <div id="map" style="width:100%;height:400px;"></div>
+  <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      <% @coord = location %>
+      function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: <%= @coord[0] %>, lng: <%= @coord[1] %>},
+              zoom: 14
+          });
+          var infoWindow = new google.maps.InfoWindow({map: map});
+
+          infoWindow.setContent('Vous êtes ici');
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                  var pos = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                  };
+
+                  infoWindow.setPosition(pos);
+                  infoWindow.setContent('Vous etes ici');
+                  map.setCenter(pos);
+              });
+          }
+      }
+  </script>
   <div class="row">
       <div class="col-md-3">
         <div class="form-group">
@@ -82,3 +113,4 @@
   </div>
   <button type="submit" class="btn btn-primary">Modifier</button>
 </form>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYUr5ciKGMTP8EBJcMk-wYeKyATYoQK8&callback=initMap" async defer></script>

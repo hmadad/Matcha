@@ -1,7 +1,20 @@
-<h1>Bienvenue sur Matcha</h1>
-<% if !session[:auth].nil? %>
-    <p>vous êtes connecté en tant que: <%= session[:auth]["username"] %></p>
-    <div class="row">
+<h1>Recherche</h1>
+<hr>
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-md-12">
+    <form action="/search" class="form-inline" method="POST">
+      <div class="form-group col-10">
+        <input type="text" class="form-control" name="search" placeholder="Exemple: Cuty" style="width: 100%">
+      </div>
+      <div class="form-group col-2">
+        <button type="submit" class="btn btn-primary" style="width: 100%">Envoyer</button>
+      </div>
+    </form>
+  </div>
+</div>
+<% if !@result.nil? %>
+  <div class="row">
+    <div class="col-md-12">
       <% @result.each do |row| %>
           <a href="/users/profile/<%= @result[0]["id"] %>" style="color: #292b2c; text-decoration: none">
             <div class="card" style="width: 20rem;">
@@ -13,9 +26,9 @@
                 <p class="card-text"><%= @result[0]["bio"] %></p>
                 <p><%= @result[0]["interest"] %></p>
                 <% if isLiked?(@result[0]["id"]) %>
-                <form action="/likes/dislike/<%= @result[0]["id"] %>" method="POST">
-                    <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                </form>
+                    <form action="/likes/dislike/<%= @result[0]["id"] %>" method="POST">
+                      <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                    </form>
                 <% else %>
                     <form action="/likes/like/<%= @result[0]["id"] %>" method="POST">
                       <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
@@ -26,4 +39,5 @@
           </a>
       <% end %>
     </div>
+  </div>
 <% end %>

@@ -1,0 +1,30 @@
+<h1>Notifications</h1>
+<hr>
+<%  %>
+<% @result.each do |row| %>
+    <% user = findUser(row["user_id"]) %>
+    <div class="card text-center" style="margin: 10px 0">
+      <div class="card-header">
+        <%= user[0]["username"] %>
+        <% if row["vu"] == 0 %>
+            <i class="fa fa-circle" aria-hidden="true" style="color: red"></i>
+        <% end %>
+        <%
+          db = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "matcha", :encoding => 'utf8')
+          db.query("UPDATE notifications SET vu = '1' WHERE id = '#{row["id"]}'")
+        %>
+      </div>
+      <div class="card-block">
+        <% if row["type"] == 1 %>
+            <h4 class="card-title" style="color: green">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></h4>
+        <% elsif row["type"] == 2 %>
+            <h4 class="card-title" style="color: red">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></h4>
+        <% end %>
+        <p class="card-text"><%= row["message"] %>.</p>
+        <a href="/users/profile/<%= row["user_id"] %>" class="btn btn-primary"><%= user[0]["firstname"] %> <%= user[0]["lastname"] %></a>
+      </div>
+      <div class="card-footer text-muted">
+        le: <%= row["created_at"] %>
+      </div>
+    </div>
+<% end %>

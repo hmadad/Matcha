@@ -1,0 +1,27 @@
+<h1>Messages</h1>
+<hr>
+<div class="row">
+  <% if @all.empty? || @ok == 0 %>
+      <h2>Aucune conversation</h2>
+  <% else %>
+    <% @all.each do |row| %>
+        <%
+          if row["user_id1"] != session[:auth]["id"]
+            @result = findUser(row["user_id1"])
+          else
+            @result = findUser(row["user_id2"])
+          end
+        %>
+        <a href="/messages/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
+          <div class="card" style="width: 20rem;">
+            <div class="img-cadre" style="width: 100%; background-color: black">
+              <img class="rounded mx-auto d-block" src="<%= @result[0]["profile"] %>" alt="" width="200" height="200">
+            </div>
+            <div class="card-block">
+              <h4 class="card-title"><%= @result[0]["username"] %></h4>
+            </div>
+          </div>
+        </a>
+    <% end %>
+  <% end %>
+</div>

@@ -1,3 +1,7 @@
 require_relative 'users'
 require_relative 'profile'
+require_relative 'messages'
+require_relative 'like'
+require_relative 'notifications'
+require_relative 'search'
 require_relative 'home'
