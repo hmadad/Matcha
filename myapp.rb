@@ -11,7 +11,13 @@ require 'open-uri'
 require 'nokogiri'
 require 'net/http'
 require 'json'
+require 'sinatra'
+require 'sinatra-websocket'
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
+set :server, 'thin'
+set :sockets, []
 enable :sessions
 
 class Matcha < Sinatra::Application
@@ -29,6 +35,7 @@ class Matcha < Sinatra::Application
 						 `firstname` varchar(255) NOT NULL,
 						 `lastname` varchar(255) NOT NULL,
 						 `password` varchar(255) NOT NULL,
+             `location` integer DEFAULT NULL,
 						 `sexe` varchar(50) DEFAULT NULL,
 						 `orientation` varchar(50) DEFAULT NULL,
 						 `bio` longtext DEFAULT NULL,
@@ -103,6 +110,15 @@ class Matcha < Sinatra::Application
 						 PRIMARY KEY (`id`)
 					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
 
+  @@client.query("CREATE TABLE IF NOT EXISTS `blocked`
+					   (
+						 `id` int(11) NOT NULL AUTO_INCREMENT,
+						 `user_id` int(11) NOT NULL,
+             `user_blocked` int(11) NOT NULL,
+						 `created_at` DATETIME NOT NULL,
+						 PRIMARY KEY (`id`)
+					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
+
   @@coder = HTMLEntities.new
 
   def isConnected?
@@ -155,6 +171,24 @@ class Matcha < Sinatra::Application
     lat = tab[:latitude]
     lon = tab[:longitude]
     return [lat,lon]
+  end
+
+  def loc(code)
+    if code.to_s.length == 1
+      nb = "0"
+      nb += code.to_s
+      nb += "000"
+    elsif code.to_s.length == 2
+      nb = code.to_s
+      nb += "000"
+    end
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + nb + "&key=AIzaSyAMshR_QKYuVRzKZZvF1jS6TiJ4rv6kTt4"
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    data = JSON.parse(response)
+    new_lat = data['results'][0]['geometry']['location']['lat']
+    new_lng = data['results'][0]['geometry']['location']['lng']
+    return [new_lat,new_lng]
   end
 
 end

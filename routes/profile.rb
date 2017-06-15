@@ -27,8 +27,15 @@ class Matcha < Sinatra::Application
   end
 
   get "/test/:id" do
-    lol = location
-    lol.inspect
+    if params[:id].length == 1
+      nb = "0"
+      nb += params[:id].to_s
+      nb += "000"
+    elsif params[:id].length == 2
+      nb = params[:id].to_s
+      nb += "000"
+    end
+    "#{nb}"
   end
 
   # ====================================================  POST PAGE  ===================================================
@@ -64,6 +71,10 @@ class Matcha < Sinatra::Application
         flash[:danger] = "Le nom d'utilisateur est deja utilisé"
         redirect "/users/profile"
       end
+    end
+    if !params[:location].nil? && !params[:location].match(/\A[-+]?[0-9]*\.?[0-9]+\Z/)
+      flash[:danger] = "Code postal invalide"
+      redirect "/users/profile"
     end
     if !params[:sexe].nil? && params[:sexe] != "Homme" && params[:sexe] != "Femme"
       flash[:danger] = "Sexe invalide"
@@ -211,7 +222,7 @@ class Matcha < Sinatra::Application
       end
     end
     id = session[:auth]["id"]
-    @@client.query("UPDATE users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', sexe = '#{@@coder.encode(params[:sexe])}', orientation = '#{@@coder.encode(params[:orientation])}', bio = '#{@@coder.encode(params[:bio])}', interest = '#{@@coder.encode(params[:interest])}' WHERE id = '#{id}'")
+    @@client.query("UPDATE users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', location = '#{@@coder.encode(params[:location])}', sexe = '#{@@coder.encode(params[:sexe])}', orientation = '#{@@coder.encode(params[:orientation])}', bio = '#{@@coder.encode(params[:bio])}', interest = '#{@@coder.encode(params[:interest])}' WHERE id = '#{id}'")
     result = []
     @@client.query("SELECT * FROM users WHERE id = '#{session[:auth]['id']}'").each do |row|
       result << row

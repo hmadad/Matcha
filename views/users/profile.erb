@@ -26,6 +26,19 @@
     <input type="text" name="lastname" class="form-control" value="<%= @result[0]["lastname"]%>">
   </div>
   <div class="form-group">
+    <label for="location">Code postal</label>
+    <select class="form-control" name="location">
+      <option value="0" disabled <%= "selected" if @result[0]["location"].nil? || @result[0]["location"] == 0 %>>Code Postal</option>
+      <%
+        a = 1
+        while a != 96 do
+      %>
+        <option value="<%= a %>" <%= "selected" if @result[0]["location"] == a %>><%= a %></option>
+      <% a += 1 %>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
     <label for="lastname">Sexe</label>
     <select class="form-control" name="sexe">
       <option value="" disabled <%= "selected" if @result[0]["sexe"].nil? || @result[0]["sexe"].empty? %>>Sexe</option>
@@ -50,37 +63,30 @@
     <label for="interest">Interêts (#tags)</label>
     <textarea name="interest" class="form-control" placeholder="Interêts: (Ex: #interet, #exemple, ...)" rows="2"><%= @result[0]["interest"]%></textarea>
   </div>
+  <% if @result[0]["location"].nil? || @result[0]["location"] == 0 %>
   <div id="map" style="width:100%;height:400px;"></div>
   <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-
-      <% @coord = location %>
       function initMap() {
           var map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: <%= @coord[0] %>, lng: <%= @coord[1] %>},
-              zoom: 14
+              center: {lat: 46.967616, lng: 2.382291},
+              zoom: 5
           });
           var infoWindow = new google.maps.InfoWindow({map: map});
-
-          infoWindow.setContent('Vous êtes ici');
-          // Try HTML5 geolocation.
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                  var pos = {
-                      lat: position.coords.latitude,
-                      lng: position.coords.longitude
-                  };
-
-                  infoWindow.setPosition(pos);
-                  infoWindow.setContent('Vous etes ici');
-                  map.setCenter(pos);
-              });
-          }
       }
   </script>
+  <% else %>
+      <div id="map" style="width:100%;height:400px;"></div>
+      <script>
+          <% @coord = loc(@result[0]["location"]) %>
+          function initMap() {
+              var map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: <%= @coord[0] %>, lng: <%= @coord[1] %>},
+                  zoom: 9
+              });
+              var infoWindow = new google.maps.InfoWindow({map: map});
+          }
+      </script>
+  <% end %>
   <div class="row">
       <div class="col-md-3">
         <div class="form-group">
