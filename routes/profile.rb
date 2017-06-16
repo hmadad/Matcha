@@ -23,6 +23,15 @@ class Matcha < Sinatra::Application
       @result << row
     end
     @result = @result[0]
+    check = []
+    @@client.query("SELECT * FROM notifications WHERE user_notified = '#{params[:id]}' AND user_id = '#{session[:auth]["id"]}' AND vu = '0'").each do |row|
+      check << row
+    end
+    if check.empty? && params[:id] != session[:auth]["id"]
+      time = Time.new
+      id = session[:auth]["id"]
+      @@client.query("INSERT INTO notifications SET user_id = '#{id}', user_notified = '#{params[:id]}', message = '#{session[:auth]["username"]}, à regardé votre page de profile', type = '3', vu = '0', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
+    end
       erb :"users/user"
   end
 
