@@ -20,6 +20,7 @@ class Matcha < Sinatra::Application
     end
     time = Time.new
     @@client.query("INSERT INTO likes SET user_id = '#{session[:auth]["id"]}', user_liked = #{params[:id]}, created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
+    @@client.query("UPDATE users SET score = score + 1 WHERE id = #{params['id']}")
     @@client.query("INSERT INTO notifications SET user_id = '#{session[:auth]["id"]}', user_notified = '#{params[:id]}', message = '#{session[:auth]["username"]}, a aimé votre profile', vu = '0',  type = '1', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
     result = []
     @@client.query("SELECT * FROM likes WHERE (user_id = '#{session[:auth]["id"]}' AND user_liked = '#{params[:id]}') OR (user_id = '#{params[:id]}' AND user_liked = '#{session[:auth]["id"]}')").each do |row|
@@ -60,6 +61,7 @@ class Matcha < Sinatra::Application
       result << row
     end
     @@client.query("DELETE FROM likes WHERE user_id = '#{session[:auth]["id"]}' AND user_liked = #{params[:id]}")
+    @@client.query("UPDATE users SET score = score - 1 WHERE id = #{params['id']}")
     @@client.query("INSERT INTO notifications SET user_id = '#{session[:auth]["id"]}', user_notified = '#{params[:id]}', message = '#{session[:auth]["username"]}, a dislike votre profile', vu = '0',  type = '2', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
     if result.length == 2
       @@client.query("UPDATE conversations SET view = '0' WHERE (user_id1 = '#{session[:auth]["id"]}' AND user_id2 = '#{params[:id]}') OR (user_id2 = '#{session[:auth]["id"]}' AND user_id1 = '#{params[:id]}')")

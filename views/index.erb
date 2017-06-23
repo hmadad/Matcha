@@ -3,21 +3,21 @@
     <p>vous êtes connecté en tant que: <%= session[:auth]["username"] %></p>
     <div class="row">
       <% @result.each do |row| %>
-          <a href="/users/profile/<%= @result[0]["id"] %>" style="color: #292b2c; text-decoration: none">
+          <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
             <div class="card" style="width: 20rem;">
               <div class="img-cadre" style="width: 100%; background-color: black">
-                <img class="rounded mx-auto d-block" src="<%= @result[0]["profile"] %>" alt="" width="200" height="200">
+                <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
               </div>
               <div class="card-block">
-                <h4 class="card-title"><%= @result[0]["username"] %></h4>
-                <p class="card-text"><%= @result[0]["bio"] %></p>
-                <p><%= @result[0]["interest"] %></p>
-                <% if isLiked?(@result[0]["id"]) %>
-                <form action="/likes/dislike/<%= @result[0]["id"] %>" method="POST">
+                <h4 class="card-title"><%= row["username"] %></h4>
+                <p class="card-text"><%= row["bio"] %></p>
+                <p><%= row["interest"] %></p>
+                <% if isLiked?(row["id"]) %>
+                <form action="/likes/dislike/<%= row["id"] %>" method="POST">
                     <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                 </form>
                 <% else %>
-                    <form action="/likes/like/<%= @result[0]["id"] %>" method="POST">
+                    <form action="/likes/like/<%= row["id"] %>" method="POST">
                       <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
                     </form>
                 <% end %>

@@ -107,13 +107,10 @@ class Matcha < Sinatra::Application
     @@client.query("INSERT INTO users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', password = '#{Digest::SHA256.hexdigest(@@coder.encode(params[:password]))}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}', token = '#{token}'")
     flash[:success] = "Vous avez reçu un email afin de finaliser votre inscription"
     Pony.mail({
-                  :to => 'you@example.com',
-                  :via => :smtp,
-                  :via_options => {
-                      :address        => 'localhost',
-                      :port           => '1025'
-                  },
+                  :to => "#{params[:email]}",
+                  :from => 'support@matcha.fr',
                   :subject => 'Matcha - Confirmation du compte',
+                  :html_body => "<h2>Matcha</h2><hr><p>Bonjour, afin de valider votre compte, merci de vous rendre sur <a href=\"http://localhost:3000/users/registered/#{@@client.last_id}/#{token}\">ce lien</a></p>",
                   :body => "Bonjour, afin de valider votre compte, merci de vous rendre sur ce lien: http://localhost:3000/users/registered/#{@@client.last_id}/#{token}"
               })
     redirect "/users/sign_in"
@@ -134,12 +131,8 @@ class Matcha < Sinatra::Application
       @@client.query("UPDATE users SET remember_token = '#{token}', reset_date ='#{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id = '#{result[0]["id"]}'")
       flash[:success] = "Un email vous a été envoyé afin de reinitialisé votre mot de passe"
       Pony.mail({
-                    :to => 'you@example.com',
-                    :via => :smtp,
-                    :via_options => {
-                        :address        => 'localhost',
-                        :port           => '1025'
-                    },
+                    :to => params[:lastname],
+                    :from => 'support@matcha.fr',
                     :subject => 'Matcha - Confirmation du compte',
                     :body => "Bonjour, afin de reinitialiser votre mot de passe, merci de vous rendre sur ce lien: http://localhost:3000/users/forget/#{result[0]["id"]}/#{token}"
                 })

@@ -85,6 +85,9 @@ class Matcha < Sinatra::Application
       flash[:danger] = "Code postal invalide"
       redirect "/users/profile"
     end
+    if params[:location].nil?
+      params[:location] = 0
+    end
     if !params[:sexe].nil? && params[:sexe] != "Homme" && params[:sexe] != "Femme"
       flash[:danger] = "Sexe invalide"
       redirect "/users/profile"

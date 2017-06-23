@@ -7,7 +7,7 @@ class Matcha < Sinatra::Application
   get "/messages" do
     @all = []
     @ok = 0
-    @@client.query("SELECT * FROM conversations ORDER BY last_message DESC").each do |row|
+    @@client.query("SELECT * FROM conversations WHERE (user_id1 = #{session[:auth]['id']} OR user_id2 = #{session[:auth]['id']}) AND view = 1 ORDER BY last_message DESC").each do |row|
       @all << row
     end
     @all.each do |row|
