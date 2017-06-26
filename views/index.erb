@@ -4,7 +4,7 @@
     <div class="row">
       <% @result.each do |row| %>
           <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
-            <div class="card" style="width: 20rem;">
+            <div class="card" style="width: 20rem; margin: 10px 30px;">
               <div class="img-cadre" style="width: 100%; background-color: black">
                 <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
               </div>

@@ -8,21 +8,28 @@
           <input type="text" class="form-control" name="search" placeholder="Exemple: Cuty" style="width: 100%">
         </div>
       </div>
-      <div class="col-md-12" style="margin-bottom: 20px;">
+      <div class="col-md-12"  style="margin-bottom: 20px;">
         <div class="row">
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-6">
-                <input type="number" class="form-control" name="min-range" min="18" max="120" value="18" style="width: 100%">
+                <input type="number" class="form-control" name="min" min="18" max="120" placeholder="Age Minimum: (Min. 18)" style="width: 100%">
               </div>
               <div class="col-md-6">
-                <input type="number" class="form-control" name="max-range" min="18" max="120" value="120" style="width: 100%">
+                <input type="number" class="form-control" name="max" min="18" max="120" placeholder="Age Maximum: (Max. 120)" style="width: 100%">
               </div>
             </div>
           </div>
           <div class="col-md-6">
+            <input type="number" class="form-control" name="km" min="0" placeholder="Distance Maximum" style="width: 100%">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12"  style="margin-bottom: 20px;">
+        <div class="row">
+          <div class="col-md-12">
             <select class="form-control" name="order" style="width: 100%">
-              <option value="" disabled>Tri</option>
+              <option value="">Tri</option>
               <option value="score">Score de popularité</option>
               <option value="tags">Tags en communs</option>
               <option value="location">Le plus proche</option>
@@ -40,21 +47,25 @@
 <% if !@result.nil? %>
   <div class="row">
       <% @result.each do |row| %>
-          <a href="/users/profile/<%= @result[0]["id"] %>" style="color: #292b2c; text-decoration: none">
-            <div class="card" style="width: 20rem;">
+          <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
+            <div class="card" style="width: 20rem; margin: 10px 30px;">
               <div class="img-cadre" style="width: 100%; background-color: black">
-                <img class="rounded mx-auto d-block" src="<%= @result[0]["profile"] %>" alt="" width="200" height="200">
+                <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
               </div>
               <div class="card-block">
-                <h4 class="card-title"><%= @result[0]["username"] %></h4>
-                <p class="card-text"><%= @result[0]["bio"] %></p>
-                <p><%= @result[0]["interest"] %></p>
-                <% if isLiked?(@result[0]["id"]) %>
-                    <form action="/likes/dislike/<%= @result[0]["id"] %>" method="POST">
+                <h4 class="card-title"><%= row["username"] %></h4>
+                <p class="card-text"><%= row["bio"] %></p>
+                <%
+                  all_user = session[:auth]["interest"].split(", ")
+                  all_other = row["interest"].split(", ")
+                %>
+                <p><%= row["interest"] %></p>
+                <% if isLiked?(row["id"]) %>
+                    <form action="/likes/dislike/<%= row["id"] %>" method="POST">
                       <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                     </form>
                 <% else %>
-                    <form action="/likes/like/<%= @result[0]["id"] %>" method="POST">
+                    <form action="/likes/like/<%= row["id"] %>" method="POST">
                       <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
                     </form>
                 <% end %>

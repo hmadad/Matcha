@@ -36,7 +36,8 @@ class Matcha < Sinatra::Application
 						 `lastname` varchar(255) NOT NULL,
 						 `password` varchar(255) NOT NULL,
              `location` integer DEFAULT NULL,
-						 `sexe` varchar(50) DEFAULT NULL,
+             `age` varchar(50) DEFAULT NULL,
+						 `sexe` integer DEFAULT NULL,
 						 `orientation` varchar(50) DEFAULT NULL,
 						 `bio` longtext DEFAULT NULL,
 						 `interest` longtext DEFAULT NULL,
@@ -162,7 +163,7 @@ class Matcha < Sinatra::Application
     return result
   end
 
-  def location
+  def Stalklocation
     url = 'http://freegeoip.net/json/'
     uri = URI(url)
     response = Net::HTTP.get(uri)

@@ -48,7 +48,7 @@ class Matcha < Sinatra::Application
       redirect :"/messages/#{params[:id]}"
     end
     time = Time.new
-    @@client.query("INSERT INTO messages SET conv_id = '#{params[:id]}', user_id = '#{session[:auth]["id"]}', message = '#{params[:message]}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
+    @@client.query("INSERT INTO messages SET conv_id = '#{params[:id]}', user_id = '#{session[:auth]["id"]}', message = '#{@@coder.encode(params[:message])}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
     @@client.query("UPDATE conversations SET last_message = '#{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id = '#{params[:id]}'")
     redirect :"/messages/#{params[:id]}"
   end

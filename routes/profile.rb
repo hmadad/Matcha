@@ -36,15 +36,10 @@ class Matcha < Sinatra::Application
   end
 
   get "/test/:id" do
-    if params[:id].length == 1
-      nb = "0"
-      nb += params[:id].to_s
-      nb += "000"
-    elsif params[:id].length == 2
-      nb = params[:id].to_s
-      nb += "000"
+    if params[:id][0] == '#'
+      params[:id] = nil
     end
-    "#{nb}"
+    "#{params[:id]}"
   end
 
   # ====================================================  POST PAGE  ===================================================
@@ -88,11 +83,15 @@ class Matcha < Sinatra::Application
     if params[:location].nil?
       params[:location] = 0
     end
+    if !params[:age].nil? && params[:age].to_i < 18 && params[:age].to_i > 120
+      flash[:danger] = "Age invalide"
+      redirect "/users/profile"
+    end
     if !params[:sexe].nil? && params[:sexe] != "Homme" && params[:sexe] != "Femme"
       flash[:danger] = "Sexe invalide"
       redirect "/users/profile"
     end
-    if !params[:orientation].nil? && params[:orientation] != "Homme" && params[:orientation] != "Femme"
+    if !params[:orientation].nil? && params[:orientation] != "Homme" && params[:orientation] != "Femme" && params[:orientation] != "Both"
       flash[:danger] = "Orientation invalide"
       redirect "/users/profile"
     end
@@ -114,7 +113,7 @@ class Matcha < Sinatra::Application
           redirect "/users/profile"
         else
           result = []
-          @@client.query("SELECT * FROM tags WHERE name = '#{row}'").each do |row|
+          @@client.query("SELECT * FROM tags WHERE name = '#{@@coder.encode(row)}'").each do |row|
             result << row
           end
           if result.empty?
@@ -234,7 +233,7 @@ class Matcha < Sinatra::Application
       end
     end
     id = session[:auth]["id"]
-    @@client.query("UPDATE users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', location = '#{@@coder.encode(params[:location])}', sexe = '#{@@coder.encode(params[:sexe])}', orientation = '#{@@coder.encode(params[:orientation])}', bio = '#{@@coder.encode(params[:bio])}', interest = '#{@@coder.encode(params[:interest])}' WHERE id = '#{id}'")
+    @@client.query("UPDATE users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', location = '#{@@coder.encode(params[:location])}', age = '#{@@coder.encode(params[:age].to_i)}', sexe = '#{@@coder.encode(params[:sexe])}', orientation = '#{@@coder.encode(params[:orientation])}', bio = '#{@@coder.encode(params[:bio])}', interest = '#{@@coder.encode(params[:interest])}' WHERE id = '#{id}'")
     result = []
     @@client.query("SELECT * FROM users WHERE id = '#{session[:auth]['id']}'").each do |row|
       result << row
