@@ -39,7 +39,6 @@
 <hr>
 <% if !@result.nil? %>
   <div class="row">
-    <div class="col-md-12">
       <% @result.each do |row| %>
           <a href="/users/profile/<%= @result[0]["id"] %>" style="color: #292b2c; text-decoration: none">
             <div class="card" style="width: 20rem;">
@@ -63,6 +62,5 @@
             </div>
           </a>
       <% end %>
-    </div>
   </div>
 <% end %>

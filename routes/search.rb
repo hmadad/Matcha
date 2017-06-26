@@ -3,6 +3,18 @@ class Matcha < Sinatra::Application
   # ====================================================  GET PAGE  ====================================================
 
   get "/search" do
+    @result = []
+    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}'").each do |row|
+      @result << row
+    end
+    erb :"search"
+  end
+
+  get "/search/" do
+    @result = []
+    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}'").each do |row|
+      @result << row
+    end
     erb :"search"
   end
 
