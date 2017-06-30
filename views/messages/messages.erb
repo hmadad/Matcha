@@ -3,31 +3,79 @@
 <div class="row" style="margin-bottom: 10px;">
   <div class="col-md-12">
     <div class="corps" id="corps" style="width:100%; height:62vh; border-radius: 10px; padding: 10px; overflow-y: auto; overflow-x: hidden">
-      <div class="row">
+      <div class="row" id="list">
         <% @messages.each do |row| %>
-            <div class="col-md-12">
-              <% if row["user_id"] == session[:auth]["id"] %>
-                  <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;"><%= row["message"] %></p>
-              <% else %>
+            <% if row["user_id"] != session[:auth]["id"] %>
+                <div class="col-md-12">
+                  <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;">
                   <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;"><%= row["message"] %></p>
-              <% end %>
-            </div>
+                </div>
+            <% else %>
+                <div class="col-md-12">
+                  <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;"><%= row["message"] %></p>
+                </div>
+            <% end %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript" charset="utf-8">
-    var objDiv = document.getElementById("corps");
-    objDiv.scrollTop = objDiv.scrollHeight;
-</script>
 <div class="row">
   <div class="col-md-12">
-    <form action="" method="POST">
+    <form action="" method="POST" id="form">
       <div class="form-group">
-        <textarea class="form-control" name="message" rows="3" placeholder="message..."></textarea>
+        <textarea class="form-control" name="message" id="message" rows="3" placeholder="message..."></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Envoyer</button>
+      <button type="submit" name="submit" class="btn btn-primary">Envoyer</button>
     </form>
   </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+    var objDiv = document.getElementById("corps");
+    var user_id = <%= session[:auth]["id"] %>;
+    objDiv.scrollTop = objDiv.scrollHeight;
+    window.onload = function(){
+        (function(){
+            var show = function(el)
+            {
+                return function(msg)
+                {
+                    id = msg.substr(msg.length - 1, msg.length);
+                    message = msg.substr(0, msg.length - 2);
+                    if (message.trim().length !== 0)
+                    {
+                        if (user_id == id)
+                        {
+                            el.innerHTML = el.innerHTML + '<div class="col-md-12"> <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;">' + message + '</p></div>';
+                        }
+                        else
+                        {
+                            el.innerHTML = el.innerHTML + '<div class="col-md-12"> <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;"> <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;">' + message + '</p></div>';
+                        }
+                        var objDiv = document.getElementById("corps");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }
+                }
+            }(document.getElementById('list'));
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+            ws.onopen
+            ws.onclose
+            ws.onmessage = function(m) { show(m.data); };
+            var sender = function(f){
+                var message     = document.getElementById('message');
+                var user_id = <%= session[:auth]["id"] %>;
+                f.onsubmit    = function(){
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.open("POST", "http://localhost:3000/messages/<%= params[:id] %>", true);
+                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xmlhttp.send("message="+message.value+"&user_id="+user_id);
+                    var array = [message.value, user_id];
+                    message.value = "";
+                    ws.send(array);
+                    // location.reload();
+                    return false;
+                }
+            }(document.getElementById('form'));
+        })();
+    }
+</script>

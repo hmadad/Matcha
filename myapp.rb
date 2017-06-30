@@ -163,7 +163,7 @@ class Matcha < Sinatra::Application
     return result
   end
 
-  def Stalklocation
+  def stalkLocation
     url = 'http://freegeoip.net/json/'
     uri = URI(url)
     response = Net::HTTP.get(uri)
@@ -190,6 +190,23 @@ class Matcha < Sinatra::Application
     new_lat = data['results'][0]['geometry']['location']['lat']
     new_lng = data['results'][0]['geometry']['location']['lng']
     return [new_lat,new_lng]
+  end
+
+  def distance(lat_a_degre, lon_a_degre, lat_b_degre, lon_b_degre)
+
+    earth_rayon = 6378000 # Rayon de la terre en mètre
+
+    lat_a = deg2rad(lat_a_degre)
+    lon_a = deg2rad(lon_a_degre)
+    lat_b = deg2rad(lat_b_degre)
+    lon_b = deg2rad(lon_b_degre)
+
+    result = earth_rayon * (Math::PI/2 - Math::asin( Math::sin(lat_b) * Math::sin(lat_a) + Math::cos(lon_b - lon_a) * Math::cos(lat_b) * Math::cos(lat_a)))
+    return result / 1000
+  end
+
+  def deg2rad(value)
+    return (Math::PI * value)/180;
   end
 
 end

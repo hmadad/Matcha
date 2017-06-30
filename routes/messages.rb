@@ -33,7 +33,27 @@ class Matcha < Sinatra::Application
     @@client.query("SELECT * FROM messages WHERE conv_id = '#{params[:id]}'").each do |row|
       @messages << row
     end
-    erb :"messages/messages"
+    if @result[0]["user_id1"] == session[:auth]["id"]
+      @other_user = findUser(@result[0]["user_id2"].to_i)
+    else
+      @other_user = findUser(@result[0]["user_id1"].to_i)
+    end
+    if !request.websocket?
+      erb :"messages/messages"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   # ====================================================  POST PAGE  ===================================================
@@ -45,6 +65,10 @@ class Matcha < Sinatra::Application
     end
     if (@result[0]["user_id1"] != session[:auth]["id"] && @result[0]["user_id2"] != session[:auth]["id"]) || @result[0]["view"] == 0
       flash[:danger] = "Reste tranquille petit coquin !"
+      redirect :"/messages/#{params[:id]}"
+    end
+    params[:message].strip!
+    if params[:message].empty?
       redirect :"/messages/#{params[:id]}"
     end
     time = Time.new

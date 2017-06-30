@@ -44,34 +44,45 @@
   </div>
 </div>
 <hr>
-<% if !@result.nil? %>
+<% if @result %>
   <div class="row">
       <% @result.each do |row| %>
-          <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
-            <div class="card" style="width: 20rem; margin: 10px 30px;">
-              <div class="img-cadre" style="width: 100%; background-color: black">
-                <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
-              </div>
-              <div class="card-block">
-                <h4 class="card-title"><%= row["username"] %></h4>
-                <p class="card-text"><%= row["bio"] %></p>
-                <%
-                  all_user = session[:auth]["interest"].split(", ")
-                  all_other = row["interest"].split(", ")
-                %>
-                <p><%= row["interest"] %></p>
-                <% if isLiked?(row["id"]) %>
-                    <form action="/likes/dislike/<%= row["id"] %>" method="POST">
-                      <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                    </form>
-                <% else %>
-                    <form action="/likes/like/<%= row["id"] %>" method="POST">
-                      <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-                    </form>
-                <% end %>
-              </div>
-            </div>
-          </a>
-      <% end %>
+        <%
+          if row["location"] && row["location"].to_i != 0
+            other_coords = loc(row["location"].to_i)
+            if (params[:km].to_s == "illimite" || @km) || distance(@coord[0].to_f, @coord[1].to_f, other_coords[0].to_f, other_coords[1].to_f) < params[:km].to_f
+        %>
+              <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
+                <div class="card" style="width: 20rem; margin: 10px 30px;">
+                  <div class="img-cadre" style="width: 100%; background-color: black">
+                    <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
+                  </div>
+                  <div class="card-block">
+                    <h4 class="card-title"><%= row["username"] %></h4>
+                    <p class="card-text"><%= row["bio"] %></p>
+                    <%
+                      all_user = session[:auth]["interest"].split(", ")
+                      all_other = row["interest"].split(", ")
+                      comun = all_user & all_other
+                      reste = all_other - all_user
+                    %>
+                    <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
+                    <% if isLiked?(row["id"]) %>
+                        <form action="/likes/dislike/<%= row["id"] %>" method="POST">
+                          <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                        </form>
+                    <% else %>
+                        <form action="/likes/like/<%= row["id"] %>" method="POST">
+                          <button type="submit" class="btn btn-success">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                        </form>
+                    <% end %>
+                  </div>
+                </div>
+              </a>
+      <%
+            end
+          end
+        end
+      %>
   </div>
 <% end %>
