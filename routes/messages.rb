@@ -15,6 +15,11 @@ class Matcha < Sinatra::Application
         @ok = 1
       end
     end
+    if session[:auth]["location"] && session[:auth]["location"].to_i != 0
+      @coord = loc(session[:auth]["location"].to_i)
+    else
+      @coord = stalkLocation
+    end
     erb :"messages/home_message"
   end
 

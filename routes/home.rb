@@ -16,4 +16,13 @@ class Matcha < Sinatra::Application
     erb :index
   end
 
+  get "/testou" do
+      url = 'http://localhost:8080/'
+      uri = URI(url)
+      response = Net::HTTP.get(uri)
+      JSON.parse(response)
+      tab = eval(response)
+      tab.inspect
+  end
+
 end
