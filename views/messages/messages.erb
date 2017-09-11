@@ -33,22 +33,25 @@
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("corps");
     var user_id = <%= session[:auth]["id"] %>;
+    var other_id = <%= @other_user[0]["id"] %>;
     objDiv.scrollTop = objDiv.scrollHeight;
     window.onload = function(){
         (function(){
             var show = function(el)
             {
+                console.log("el = " + el);
                 return function(msg)
                 {
-                    id = msg.substr(msg.length - 1, msg.length);
-                    message = msg.substr(0, msg.length - 2);
+                    tab = msg.split(',');
+                    id = tab[1];
+                    message = tab[0];
                     if (message.trim().length !== 0)
                     {
                         if (user_id == id)
                         {
                             el.innerHTML = el.innerHTML + '<div class="col-md-12"> <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;">' + message + '</p></div>';
                         }
-                        else
+                        else if (other_id == id)
                         {
                             el.innerHTML = el.innerHTML + '<div class="col-md-12"> <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;"> <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;">' + message + '</p></div>';
                         }
@@ -58,8 +61,7 @@
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            ws.onopen
-            ws.onclose
+            console.log('ws://' + window.location.host + window.location.pathname)
             ws.onmessage = function(m) { show(m.data); };
             var sender = function(f){
                 var message     = document.getElementById('message');
@@ -69,10 +71,9 @@
                     xmlhttp.open("POST", "http://localhost:3000/messages/<%= params[:id] %>", true);
                     xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xmlhttp.send("message="+message.value+"&user_id="+user_id);
-                    var array = [message.value, user_id];
+                    var array = [message.value, user_id, other_id];
                     message.value = "";
                     ws.send(array);
-                    // location.reload();
                     return false;
                 }
             }(document.getElementById('form'));

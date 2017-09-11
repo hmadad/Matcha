@@ -24,6 +24,9 @@ class Matcha < Sinatra::Application
   end
 
   get "/messages/:id" do
+    if isBlocked?(params[:id])
+      redirect :"/messages"
+    end
     @result = []
     @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}'").each do |row|
       @result << row

@@ -27,3 +27,40 @@
       <% end %>
     </div>
 <% end %>
+
+<div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notmsg"></span>
+</div>
+<script type="text/javascript" charset="utf-8">
+    var objDiv = document.getElementById("blk");
+    var blkmsg = document.getElementById("notmsg");
+    var user_id = <%= session[:auth]["id"] %>;
+    objDiv.style.display = 'none';
+    window.onload = function(){
+        (function(){
+            var show = function(el)
+            {
+                console.log(blkmsg);
+                return function(msg)
+                {
+                    tab = msg.split(',');
+                    id = tab[1];
+                    message = tab[0];
+                    user_for = tab[2]
+                    console.log(msg)
+                    console.log("user id et user for = " + user_id +  + user_for)
+                    if (user_id == user_for)
+                    {
+                        objDiv.style.display = 'block';
+                        blkmsg.innerHTML = 'Vous avez un nouveau message';
+                    }
+                }
+            }(document.getElementById('list'));
+            var ws = new WebSocket('ws://' + window.location.host + '/messages/1');
+            ws.onmessage = function(m) { show(m.data); };
+        })();
+    }
+</script>

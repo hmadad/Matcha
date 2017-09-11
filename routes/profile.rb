@@ -101,13 +101,10 @@ class Matcha < Sinatra::Application
     end
     if !params[:interest].nil?
       split = params[:interest].split(', ')
+      i = 0
       split.each do |row|
-        if row[0] != '#'
-          flash[:danger] = "Le format d'un de vos tag est invalide. Exemple: #tags1, #tags2"
-          redirect "/users/profile"
-        end
-      end
-      split.each do |row|
+        row.strip!
+        split[i] = row.gsub(' ', '')
         if row[0] != '#'
           flash[:danger] = "Le format d'un de vos tag est invalide. Exemple: #tags1, #tags2"
           redirect "/users/profile"
@@ -122,7 +119,9 @@ class Matcha < Sinatra::Application
             @@client.query("INSERT INTO tags SET user_id = '#{id}', name = '#{@@coder.encode(row)}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
           end
         end
+        i += 1
       end
+      params[:interest] = split.join(', ')
     end
     if params[:profile] || params[:image2] || params[:image3] || params[:image4] || params[:image5]
       extension = ["jpeg", "jpg", "png"]

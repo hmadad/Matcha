@@ -183,12 +183,15 @@ class Matcha < Sinatra::Application
       nb = code.to_s
       nb += "000"
     end
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + nb + "&key=AIzaSyAMshR_QKYuVRzKZZvF1jS6TiJ4rv6kTt4"
+    if nb == "75000"
+      nb = "75001"
+    end
+    url = "http://api.zippopotam.us/fr/" + nb
     uri = URI(url)
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)
-    new_lat = data['results'][0]['geometry']['location']['lat']
-    new_lng = data['results'][0]['geometry']['location']['lng']
+    new_lat = data["places"][0]['latitude']
+    new_lng = data["places"][0]['longitude']
     return [new_lat,new_lng]
   end
 
@@ -207,6 +210,17 @@ class Matcha < Sinatra::Application
 
   def deg2rad(value)
     return (Math::PI * value)/180;
+  end
+
+  def isBlocked?(id)
+    result = []
+    @@client.query("SELECT * FROM blocked WHERE (user_id = '#{session[:auth]["id"]}' OR user_id = '#{id}') AND (user_blocked = '#{id}' OR user_blocked = '#{session[:auth]["id"]}')").each do |row|
+      result << row
+    end
+    if !result.empty?
+      return true
+    end
+    return false
   end
 
 end

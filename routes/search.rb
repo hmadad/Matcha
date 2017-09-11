@@ -11,7 +11,7 @@ class Matcha < Sinatra::Application
       orientation = "Femme' OR sexe = 'HOMME"
     end
     @result = []
-    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND sexe = '#{orientation}' ORDER BY created_at DESC").each do |row|
+    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND (sexe = '#{orientation}') ORDER BY created_at DESC").each do |row|
       @result << row
     end
     if session[:auth]["location"] && session[:auth]["location"].to_i != 0
