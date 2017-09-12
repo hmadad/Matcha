@@ -36,8 +36,8 @@ class Matcha < Sinatra::Application
 						 `lastname` varchar(255) NOT NULL,
 						 `password` varchar(255) NOT NULL,
              `location` integer DEFAULT NULL,
-             `age` varchar(50) DEFAULT NULL,
-						 `sexe` integer DEFAULT NULL,
+             `sexe` varchar(50) DEFAULT NULL,
+						 `age` integer DEFAULT NULL,
 						 `orientation` varchar(50) DEFAULT NULL,
 						 `bio` longtext DEFAULT NULL,
 						 `interest` longtext DEFAULT NULL,
@@ -57,6 +57,7 @@ class Matcha < Sinatra::Application
              `image3` longtext DEFAULT NULL,
              `image4` longtext DEFAULT NULL,
              `image5` longtext DEFAULT NULL,
+             `is_connected` integer NOT NULL DEFAULT '0',
 						 PRIMARY KEY (`id`)
 					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
 
@@ -96,6 +97,7 @@ class Matcha < Sinatra::Application
 						 `conv_id` int(11) NOT NULL,
 						 `user_id` int(11) NOT NULL,
              `message` longtext NOT NULL,
+             `vu` integer NOT NULL DEFAULT '0',
 						 `created_at` DATETIME NOT NULL,
 						 PRIMARY KEY (`id`)
 					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
@@ -221,6 +223,22 @@ class Matcha < Sinatra::Application
       return true
     end
     return false
+  end
+
+  def countNbMsg
+    result = []
+    @@client.query("SELECT COUNT(messages.id) FROM conversations RIGHT JOIN messages ON conversations.id = messages.conv_id WHERE (conversations.user_id1 = '#{session[:auth]["id"]}' OR conversations.user_id2 = '#{session[:auth]["id"]}') AND (messages.vu = '0') AND (messages.user_id NOT LIKE '#{session[:auth]["id"]}') AND (conversations.view = '1')").each do |row|
+      result << row
+    end
+    return result[0]["COUNT(messages.id)"]
+  end
+
+  def countMsg(idconv)
+    result = []
+    @@client.query("SELECT COUNT(id) FROM messages WHERE conv_id = '#{idconv}' AND user_id NOT LIKE '#{session[:auth]["id"]}' AND vu = '0'").each do |row|
+      result << row
+    end
+    return result[0]["COUNT(id)"]
   end
 
 end

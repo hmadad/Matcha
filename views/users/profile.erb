@@ -124,7 +124,7 @@
   <button type="submit" class="btn btn-primary">Modifier</button>
 </form>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYUr5ciKGMTP8EBJcMk-wYeKyATYoQK8&callback=initMap" async defer></script>
-<div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 55px;">
+<div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -146,10 +146,16 @@
                     id = tab[1];
                     message = tab[0];
                     user_for = tab[2]
-                    console.log(msg)
-                    console.log("user id et user for = " + user_id +  + user_for)
                     if (user_id == user_for)
                     {
+                        var nav = document.getElementById("tes");
+                        if (tes.innerHTML === "")
+                            tes.innerHTML = '1';
+                        else
+                        {
+                            res = parseInt(tes.innerHTML) + 1;
+                            tes.innerHTML = '' + res;
+                        }
                         objDiv.style.display = 'block';
                         blkmsg.innerHTML = 'Vous avez un nouveau message';
                     }

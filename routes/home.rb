@@ -10,19 +10,19 @@ class Matcha < Sinatra::Application
       @result << row
     end
     @nb = []
-    @@client.query("SELECT COUNT(id) as nb FROM notifications WHERE user_notified = '#{session[:auth]['id']}' AND vu = '0'").each do |row|
+    @@client.query("SELECT COUNT(notifications.id) as nb FROM notifications WHERE user_notified = '#{session[:auth]['id']}' AND notifications.vu = '0'").each do |row|
       @nb << row
     end
     erb :index
   end
 
   get "/testou" do
-      url = 'http://localhost:8080/'
-      uri = URI(url)
-      response = Net::HTTP.get(uri)
-      JSON.parse(response)
-      tab = eval(response)
-      tab.inspect
+    idconv = 1
+      result = []
+      @@client.query("SELECT COUNT(id) FROM messages WHERE conv_id = '#{idconv}' AND user_id NOT LIKE '#{session[:auth]["id"]}' AND vu = '0'").each do |row|
+        result << row
+      end
+      result[0]["COUNT(id)"].inspect
   end
 
 end

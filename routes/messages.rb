@@ -64,6 +64,11 @@ class Matcha < Sinatra::Application
     end
   end
 
+  get "/messages/:id/check" do
+    @@client.query("UPDATE messages SET vu = '1' WHERE conv_id = '#{params[:id]}' AND user_id NOT LIKE '#{session[:auth]["id"]}'")
+    redirect :"/messages/#{params[:id]}"
+  end
+
   # ====================================================  POST PAGE  ===================================================
 
   post "/messages/:id" do

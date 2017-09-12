@@ -46,6 +46,7 @@ class Matcha < Sinatra::Application
   end
 
   get "/users/sign_out" do
+    @@client.query("UPDATE users SET is_connected = '0' WHERE id = '#{session[:auth]["id"]}'")
     session[:auth] = nil
     flash[:success] = "Vous avez été déconnecté avec succès"
     redirect "/"
@@ -62,6 +63,7 @@ class Matcha < Sinatra::Application
       if Digest::SHA256.hexdigest(params[:password]) == result[0]["password"]
         session[:auth] = result[0]
         flash[:success] = "Connexion reussi"
+        @@client.query("UPDATE users SET is_connected = '1' WHERE id = '#{session[:auth]["id"]}'")
         redirect "/"
       end
     end

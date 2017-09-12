@@ -50,12 +50,12 @@
                         <% if isLiked?(@result["id"]) %>
                             <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
                               <button type="submit" class="btn btn-danger pull-left">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                              <a href="messages/<%= row['id'] %>"><button type="button" class="btn btn-primary pull-right">Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
+                              <a href="messages/<%= row['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(row['id']) if countMsg(row['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
                             </form>
                         <% else %>
                             <form action="/likes/like/<%= @result["id"] %>" method="POST">
                               <button type="submit" class="btn btn-success pull-left">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-                              <a href="messages/<%= row['id'] %>"><button type="button" class="btn btn-primary pull-right">Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
+                              <a href="messages/<%= row['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(row['id']) if countMsg(row['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
                             </form>
                         <% end %>
                       </div>
@@ -85,3 +85,45 @@
     <% end %>
   <% end %>
 </div>
+<div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 55px;">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notmsg"></span>
+</div>
+<script type="text/javascript" charset="utf-8">
+    var objDiv = document.getElementById("blk");
+    var blkmsg = document.getElementById("notmsg");
+    var user_id = <%= session[:auth]["id"] %>;
+    objDiv.style.display = 'none';
+    window.onload = function(){
+        (function(){
+            var show = function(el)
+            {
+                console.log(blkmsg);
+                return function(msg)
+                {
+                    tab = msg.split(',');
+                    id = tab[1];
+                    message = tab[0];
+                    user_for = tab[2]
+                    if (user_id == user_for)
+                    {
+                        var t = document.getElementById("cnt" + id);
+                        objDiv.style.display = 'block';
+                        blkmsg.innerHTML = 'Vous avez un nouveau message';
+                        if (t.innerHTML === "")
+                            t.innerHTML = '1';
+                        else
+                        {
+                            res = parseInt(t.innerHTML) + 1;
+                            t.innerHTML = '' + res;
+                        }
+                    }
+                }
+            }(document.getElementById('list'));
+            var ws = new WebSocket('ws://' + window.location.host + '/messages/1');
+            ws.onmessage = function(m) { show(m.data); };
+        })();
+    }
+</script>

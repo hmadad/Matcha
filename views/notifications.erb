@@ -52,10 +52,16 @@
                     id = tab[1];
                     message = tab[0];
                     user_for = tab[2]
-                    console.log(msg)
-                    console.log("user id et user for = " + user_id +  + user_for)
                     if (user_id == user_for)
                     {
+                        var nav = document.getElementById("tes");
+                        if (tes.innerHTML === "")
+                            tes.innerHTML = '1';
+                        else
+                        {
+                            res = parseInt(tes.innerHTML) + 1;
+                            tes.innerHTML = '' + res;
+                        }
                         objDiv.style.display = 'block';
                         blkmsg.innerHTML = 'Vous avez un nouveau message';
                     }

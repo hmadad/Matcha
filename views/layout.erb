@@ -24,7 +24,7 @@
       </li>
       <% if session[:auth] %>
           <li class="nav-item">
-              <a class="nav-link" href="/messages">Messages <i class="fa fa-comments" aria-hidden="true"></i></a>
+              <a class="nav-link" href="/messages"><span style="color:red" id="tes"><%= "#{countNbMsg}" if countNbMsg > 0 %></span> Messages <i class="fa fa-comments" aria-hidden="true"></i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/notifications">
@@ -87,5 +87,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/77127c120b.js"></script>
+<script type="text/javascript">
+    var IDLE_TIMEOUT = 1200; //seconds
+    var _idleSecondsCounter = 0;
+    document.onclick = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onmousemove = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onkeypress = function() {
+        _idleSecondsCounter = 0;
+    };
+    window.setInterval(CheckIdleTime, 1000);
+    function CheckIdleTime() {
+        _idleSecondsCounter++;
+        var oPanel = document.getElementById("SecondsUntilExpire");
+        if (oPanel)
+            oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+        if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+            document.location.href = "/users/sign_out";
+        }
+    }
+</script>
 </body>
 </html>
