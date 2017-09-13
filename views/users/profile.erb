@@ -161,7 +161,7 @@
                     }
                 }
             }(document.getElementById('list'));
-            var ws = new WebSocket('ws://' + window.location.host + '/messages/1');
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }

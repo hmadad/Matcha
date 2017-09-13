@@ -16,6 +16,9 @@ class Matcha < Sinatra::Application
   # ====================================================  POST PAGE  ===================================================
 
   post "/blocked/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     if params[:id] == session[:auth]["id"]
       flash["danger"] = "Vous ne pouvez pas vous bloquer vous même"
       redirect "/"
@@ -43,6 +46,9 @@ class Matcha < Sinatra::Application
   end
 
   post "/unblock/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     if params[:id] == session[:auth]["id"]
       flash["danger"] = "Vous ne pouvez pas vous débloquer vous même"
       redirect "/"

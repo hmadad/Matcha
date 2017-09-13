@@ -6,6 +6,9 @@ class Matcha < Sinatra::Application
 
   # ====================================================  POST PAGE  ===================================================
   post "/likes/like/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     if session[:auth]["id"] == params[:id]
       flash[:danger] = "Vous vous aimez trop, arretez ca !"
       redirect "/"
@@ -43,6 +46,9 @@ class Matcha < Sinatra::Application
     redirect "/"
   end
   post "/likes/dislike/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     if session[:auth]["id"] == params[:id]
       flash[:danger] = "Vous ne pouvez pas ne pas vous aimez! Ca serai triste :("
       redirect "/"

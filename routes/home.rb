@@ -13,16 +13,22 @@ class Matcha < Sinatra::Application
     @@client.query("SELECT COUNT(notifications.id) as nb FROM notifications WHERE user_notified = '#{session[:auth]['id']}' AND notifications.vu = '0'").each do |row|
       @nb << row
     end
-    erb :index
-  end
-
-  get "/testou" do
-    idconv = 1
-      result = []
-      @@client.query("SELECT COUNT(id) FROM messages WHERE conv_id = '#{idconv}' AND user_id NOT LIKE '#{session[:auth]["id"]}' AND vu = '0'").each do |row|
-        result << row
+    if !request.websocket?
+      erb :index
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
       end
-      result[0]["COUNT(id)"].inspect
+    end
   end
 
 end

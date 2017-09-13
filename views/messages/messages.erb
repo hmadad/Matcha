@@ -54,6 +54,10 @@
                         else if (other_id == id)
                         {
                             el.innerHTML = el.innerHTML + '<div class="col-md-12"> <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;"> <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;">' + message + '</p></div>';
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("GET", "http://localhost:3000/messages/<%= params[:id] %>/check", true);
+                            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xmlhttp.send();
                         }
                         var objDiv = document.getElementById("corps");
                         objDiv.scrollTop = objDiv.scrollHeight;

@@ -16,6 +16,9 @@ class Matcha < Sinatra::Application
   end
 
   get "/users/registered/:id/:token" do
+    if isConnected?
+      redirect "/"
+    end
     result = []
     @@client.query("SELECT * FROM users WHERE id = '#{params[:id]}'").each do |row|
       result << row
@@ -29,10 +32,16 @@ class Matcha < Sinatra::Application
   end
 
   get "/users/forget" do
+    if isConnected?
+      redirect "/"
+    end
     erb :"users/forget"
   end
 
   get "/users/forget/:id/:token" do
+    if isConnected?
+      redirect "/"
+    end
     result = []
     time = Time.new
     @@client.query("SELECT * FROM users WHERE id = '#{params[:id]}' AND remember_token IS NOT NULL AND remember_token = '#{params[:token]}' AND reset_date > DATE_SUB('#{time.strftime('%Y-%m-%d %H:%M:%S')}', INTERVAL 30 MINUTE)").each do |row|
@@ -46,6 +55,9 @@ class Matcha < Sinatra::Application
   end
 
   get "/users/sign_out" do
+    if !isConnected?
+      redirect "/"
+    end
     @@client.query("UPDATE users SET is_connected = '0' WHERE id = '#{session[:auth]["id"]}'")
     session[:auth] = nil
     flash[:success] = "Vous avez été déconnecté avec succès"
@@ -55,6 +67,9 @@ class Matcha < Sinatra::Application
   # ====================================================  POST PAGE  ===================================================
 
   post "/users/sign_in" do
+    if isConnected?
+      redirect "/"
+    end
     result = []
     @@client.query("SELECT * FROM users WHERE (username = '#{params[:UsernameOrEmail]}' OR email = '#{params[:usernameOrEmail]}') AND confirmation_date IS NOT NULL").each do |row|
       result << row
@@ -72,6 +87,9 @@ class Matcha < Sinatra::Application
   end
 
   post '/users/sign_up' do
+    if isConnected?
+      redirect "/"
+    end
     if params[:email].empty? || params[:username].empty? || params[:firstname].empty? || params[:lastname].empty? || params[:password].empty? || params[:password_conf].empty?
       flash[:danger] = "Tout les champs sont obligatoires"
       redirect "/users/sign_up"
@@ -119,6 +137,9 @@ class Matcha < Sinatra::Application
   end
 
   post "/users/forget" do
+    if isConnected?
+      redirect "/"
+    end
     if !params[:email].match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)
       flash[:danger] = "L'email n'est pas valide"
       redirect "/users/forget"
@@ -145,6 +166,9 @@ class Matcha < Sinatra::Application
   end
 
   post "/users/forget/:id/:token" do
+    if isConnected?
+      redirect "/"
+    end
     if params[:password] != params[:password_conf]
 
       redirect "/users/forget/#{params[:id]}/#{params[:token]}"

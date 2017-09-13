@@ -3,12 +3,15 @@ class Matcha < Sinatra::Application
   # ====================================================  GET PAGE  ====================================================
 
   get "/search" do
+    if !isConnected?
+      redirect "/"
+    end
     if session[:auth]['orientation'] == "Femme"
       orientation = "Femme"
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
     else
-      orientation = "Femme' OR sexe = 'HOMME"
+      orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
     end
     @result = []
     @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND (sexe = '#{orientation}') ORDER BY created_at DESC").each do |row|
@@ -20,18 +23,36 @@ class Matcha < Sinatra::Application
       @coord = stalkLocation
     end
     @km = {}
-    @km == "illimite"
-    erb :"search"
+    @km = "illimite"
+    if !request.websocket?
+      erb :"search"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   get "/search/:min/:max/:km/:order/" do
+    if !isConnected?
+      redirect "/"
+    end
     @params = params
     if session[:auth]['orientation'] == "Femme"
       orientation = "Femme"
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
     else
-      orientation = "Femme' OR sexe = 'HOMME"
+      orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
     end
     if params[:order] == "score"
       order = "score"
@@ -74,16 +95,34 @@ class Matcha < Sinatra::Application
       end
       @result = @result.reverse
     end
-    erb :"search"
+    if !request.websocket?
+      erb :"search"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   get "/search/:min/:max/:km/:order/:search" do
+    if !isConnected?
+      redirect "/"
+    end
     if session[:auth]['orientation'] == "Femme"
       orientation = "Femme"
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
     else
-      orientation = "Femme' OR sexe = 'HOMME"
+      orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
     end
     if params[:order] == "score"
       order = "score"
@@ -110,12 +149,30 @@ class Matcha < Sinatra::Application
       end
       @result = @result.reverse
     end
-    erb :"search"
+    if !request.websocket?
+      erb :"search"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   # ====================================================  POST PAGE  ===================================================
 
   post "/search" do
+    if !isConnected?
+      redirect "/"
+    end
     if params[:search][0] == '#'
       params[:search] = params[:search][1..params[:search].length]
     end

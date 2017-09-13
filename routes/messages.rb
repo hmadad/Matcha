@@ -5,6 +5,9 @@ class Matcha < Sinatra::Application
   # ====================================================  GET PAGE  ====================================================
 
   get "/messages" do
+    if !isConnected?
+      redirect "/"
+    end
     @all = []
     @ok = 0
     @@client.query("SELECT * FROM conversations WHERE (user_id1 = #{session[:auth]['id']} OR user_id2 = #{session[:auth]['id']}) AND view = 1 ORDER BY last_message DESC").each do |row|
@@ -20,7 +23,22 @@ class Matcha < Sinatra::Application
     else
       @coord = stalkLocation
     end
-    erb :"messages/home_message"
+    if !request.websocket?
+      erb :"messages/home_message"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   get "/messages/:id" do
@@ -65,6 +83,16 @@ class Matcha < Sinatra::Application
   end
 
   get "/messages/:id/check" do
+    if !isConnected?
+      redirect "/"
+    end
+    result = []
+    @@client.query("SELECT * FROM conversations WHERE (user_id1 = #{session[:auth]['id']} OR user_id2 = #{session[:auth]['id']}) AND id = '#{params[:id]}' AND view = '1'").each do |row|
+      result << row
+    end
+    if result.empty?
+      redirect "/messages"
+    end
     @@client.query("UPDATE messages SET vu = '1' WHERE conv_id = '#{params[:id]}' AND user_id NOT LIKE '#{session[:auth]["id"]}'")
     redirect :"/messages/#{params[:id]}"
   end
@@ -72,6 +100,9 @@ class Matcha < Sinatra::Application
   # ====================================================  POST PAGE  ===================================================
 
   post "/messages/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     @result = []
     @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}'").each do |row|
       @result << row

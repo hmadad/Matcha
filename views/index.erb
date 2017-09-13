@@ -50,6 +50,7 @@
                     id = tab[1];
                     message = tab[0];
                     user_for = tab[2]
+                    console.log(msg)
                     if (user_id == user_for)
                     {
                         var nav = document.getElementById("tes");
@@ -65,7 +66,8 @@
                     }
                 }
             }(document.getElementById('list'));
-            var ws = new WebSocket('ws://' + window.location.host + '/messages/1');
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }

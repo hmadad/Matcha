@@ -49,12 +49,7 @@
                         <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
                         <% if isLiked?(@result["id"]) %>
                             <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
-                              <button type="submit" class="btn btn-danger pull-left">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                              <a href="messages/<%= row['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(row['id']) if countMsg(row['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
-                            </form>
-                        <% else %>
-                            <form action="/likes/like/<%= @result["id"] %>" method="POST">
-                              <button type="submit" class="btn btn-success pull-left">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                              <button type="submit" class="btn btn-danger pull-left" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                               <a href="messages/<%= row['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(row['id']) if countMsg(row['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
                             </form>
                         <% end %>
@@ -109,6 +104,14 @@
                     user_for = tab[2]
                     if (user_id == user_for)
                     {
+                        var nav = document.getElementById("tes");
+                        if (tes.innerHTML === "")
+                            tes.innerHTML = '1';
+                        else
+                        {
+                            res = parseInt(tes.innerHTML) + 1;
+                            tes.innerHTML = '' + res;
+                        }
                         var t = document.getElementById("cnt" + id);
                         objDiv.style.display = 'block';
                         blkmsg.innerHTML = 'Vous avez un nouveau message';
@@ -122,8 +125,14 @@
                     }
                 }
             }(document.getElementById('list'));
-            var ws = new WebSocket('ws://' + window.location.host + '/messages/1');
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
             ws.onmessage = function(m) { show(m.data); };
         })();
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    function sendnot(id, id_for) {
+        ws.send('not,' + id + ',' + id_for);
     }
 </script>

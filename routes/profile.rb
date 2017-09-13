@@ -14,10 +14,28 @@ class Matcha < Sinatra::Application
     @@client.query("SELECT * FROM users WHERE id = '#{session[:auth]["id"]}'").each do |row|
       @result << row
     end
-    erb :"users/profile"
+    if !request.websocket?
+      erb :"users/profile"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
   end
 
   get "/users/profile/:id" do
+    if !isConnected?
+      redirect "/"
+    end
     @result = []
     @@client.query("SELECT * FROM users WHERE id = '#{params[:id]}'").each do |row|
       @result << row
@@ -32,18 +50,29 @@ class Matcha < Sinatra::Application
       id = session[:auth]["id"]
       @@client.query("INSERT INTO notifications SET user_id = '#{id}', user_notified = '#{params[:id]}', message = '#{session[:auth]["username"]}, à regardé votre page de profile', type = '3', vu = '0', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
     end
+    if !request.websocket?
       erb :"users/user"
-  end
-
-  get "/test/:id" do
-    if params[:id][0] == '#'
-      params[:id] = nil
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
     end
-    "#{params[:id]}"
   end
 
   # ====================================================  POST PAGE  ===================================================
   post "/users/profile" do
+    if !isConnected?
+      redirect "/"
+    end
     if params[:email].empty? || params[:username].empty? || params[:firstname].empty? || params[:lastname].empty?
       flash[:danger] = "Tout les champs avec une étoile sont obligatoires"
       redirect "/users/profile"
