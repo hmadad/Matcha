@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <title>Matcha</title>
-  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -24,14 +23,15 @@
       </li>
       <% if session[:auth] %>
           <li class="nav-item">
-              <a class="nav-link" href="/messages"><span style="color:red" id="tes"><%= "#{countNbMsg}" if countNbMsg > 0 %></span> Messages <i class="fa fa-comments" aria-hidden="true"></i></a>
+              <a class="nav-link" href="/messages"><span style="color:red" id="tes"><%= "#{countNbMsg}" if countNbMsg > 0 %></span> Messages <i class="fa fa-comments" aria-hidden="true" <%= "style='color:red;'" if countNbMsg > 0 %>></i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/notifications">
+              <span style="color:red" id="tesnot"><%= "#{countNot}" if countNot > 0 %></span>
               Notifications
               <% if !@nb.nil? %>
                   <% if @nb[0]["nb"] != 0 %>
-                      <span style="color:red"><%= "(#{@nb[0]["nb"]})" %></span><i class="fa fa-bell-o" aria-hidden="true" style="color: red"></i>
+                      <i class="fa fa-bell-o" aria-hidden="true" style="color: red"></i>
                   <% else %>
                       <i class="fa fa-bell-o" aria-hidden="true"></i>
                   <% end %>

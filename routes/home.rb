@@ -17,6 +17,7 @@ class Matcha < Sinatra::Application
       erb :index
     else
       request.websocket do |ws|
+        puts ws.inspect
         ws.onopen do
           settings.sockets << ws
         end

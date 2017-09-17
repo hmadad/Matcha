@@ -43,8 +43,8 @@
                 return function(msg)
                 {
                     tab = msg.split(',');
-                    id = tab[1];
-                    message = tab[0];
+                    id = tab[2];
+                    message = tab[1];
                     if (message.trim().length !== 0)
                     {
                         if (user_id == id)
@@ -75,12 +75,18 @@
                     xmlhttp.open("POST", "http://localhost:3000/messages/<%= params[:id] %>", true);
                     xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xmlhttp.send("message="+message.value+"&user_id="+user_id);
-                    var array = [message.value, user_id, other_id, window.location.pathname.split('/').slice(-1).pop()];
+                    var array = ['msg', message.value, user_id, other_id, window.location.pathname.split('/').slice(-1).pop()];
                     message.value = "";
                     ws.send(array);
                     return false;
                 }
             }(document.getElementById('form'));
         })();
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    function sendnot(id, id_for) {
+        ws.send('not,' + ',' + id + ',' + id_for);
     }
 </script>

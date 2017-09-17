@@ -25,6 +25,11 @@
           %>
                     <div class="card" style="width: 20rem; margin: 10px 30px;">
                       <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
+                        <% if isOnline?(@result["id"]) %>
+                            <i class="fa fa-circle pull-left" aria-hidden="true" style="color: green; margin-top: 2px"></i>
+                        <% else %>
+                            <i class="fa fa-circle pull-left" aria-hidden="true" style="color: grey;"></i>
+                        <% end %>
                         <p class="pull-left" style="color: white"><b><%= distance %></b></p>
                         <a data-toggle="modal" href="#myModal<%= @result["id"] %>">
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -86,11 +91,20 @@
   </button>
   <span id="notmsg"></span>
 </div>
+<div id="blknot" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 55px;">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
+</div>
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("blk");
     var blkmsg = document.getElementById("notmsg");
+    var objDiv2 = document.getElementById("blknot");
+    var blkmsg2 = document.getElementById("notnot");
     var user_id = <%= session[:auth]["id"] %>;
     objDiv.style.display = 'none';
+    objDiv2.style.display = 'none';
     window.onload = function(){
         (function(){
             var show = function(el)
@@ -99,33 +113,60 @@
                 return function(msg)
                 {
                     tab = msg.split(',');
-                    id = tab[1];
-                    message = tab[0];
-                    user_for = tab[2]
-                    if (user_id == user_for)
+                    status = tab[0]
+                    id = tab[2];
+                    message = tab[1];
+                    user_for = tab[3]
+                    console.log(msg)
+                    console.log(status)
+                    if (status == "msg")
                     {
-                        var nav = document.getElementById("tes");
-                        if (tes.innerHTML === "")
-                            tes.innerHTML = '1';
-                        else
+                        if (message.trim().length !== 0)
                         {
-                            res = parseInt(tes.innerHTML) + 1;
-                            tes.innerHTML = '' + res;
+                            if (user_id == user_for)
+                            {
+                                var nav = document.getElementById("tes");
+                                if (nav.innerHTML === "")
+                                    nav.innerHTML = '1';
+                                else
+                                {
+                                    res = parseInt(nav.innerHTML) + 1;
+                                    nav.innerHTML = '' + res;
+                                }
+                                objDiv.style.display = 'block';
+                                blkmsg.innerHTML = 'Vous avez un nouveau message';
+                                var t = document.getElementById("cnt" + id);
+                                if (t.innerHTML === "")
+                                    t.innerHTML = '1';
+                                else
+                                {
+                                    res = parseInt(t.innerHTML) + 1;
+                                    t.innerHTML = '' + res;
+                                }
+                            }
                         }
-                        var t = document.getElementById("cnt" + id);
-                        objDiv.style.display = 'block';
-                        blkmsg.innerHTML = 'Vous avez un nouveau message';
-                        if (t.innerHTML === "")
-                            t.innerHTML = '1';
-                        else
+                    }
+                    else if (status == "not")
+                    {
+                        console.log('Je usis la')
+                        if (user_id == user_for)
                         {
-                            res = parseInt(t.innerHTML) + 1;
-                            t.innerHTML = '' + res;
+                            var nav2 = document.getElementById("tesnot");
+                            if (nav2.innerHTML === "")
+                                nav2.innerHTML = '1';
+                            else
+                            {
+                                res = parseInt(nav2.innerHTML) + 1;
+                                nav2.innerHTML = '' + res;
+                            }
+                            objDiv2.style.display = 'block';
+                            blkmsg2.innerHTML = 'Vous avez un nouveau message';
                         }
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }
@@ -133,6 +174,6 @@
 <script type="text/javascript" charset="utf-8">
     var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     function sendnot(id, id_for) {
-        ws.send('not,' + id + ',' + id_for);
+        ws.send('not,' + ',' + id + ',' + id_for);
     }
 </script>

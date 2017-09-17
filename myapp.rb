@@ -241,6 +241,26 @@ class Matcha < Sinatra::Application
     return result[0]["COUNT(id)"]
   end
 
+  def countNot
+    result = []
+    @@client.query("SELECT COUNT(id) FROM notifications WHERE user_notified = '#{session[:auth]["id"]}' AND vu = '0'").each do |row|
+      result << row
+    end
+    return result[0]["COUNT(id)"]
+  end
+
+  def isOnline?(id)
+    result = []
+    @@client.query("SELECT * FROM users WHERE id = '#{id}'").each do |row|
+      result << row
+    end
+    if result[0]['is_connected'] == 1
+      return true
+    else
+      return false
+    end
+  end
+
 end
 
 require_relative 'routes/init'
