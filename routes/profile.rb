@@ -112,7 +112,7 @@ class Matcha < Sinatra::Application
     if params[:location].nil?
       params[:location] = 0
     end
-    if !params[:age].nil? && params[:age].to_i < 18 && params[:age].to_i > 120
+    if params[:age] && (params[:age].to_i < 18 || params[:age].to_i > 120)
       flash[:danger] = "Age invalide"
       redirect "/users/profile"
     end

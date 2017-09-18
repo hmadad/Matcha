@@ -55,6 +55,9 @@
         </li>
       <% else %>
           <li class="nav-item">
+            <a class="nav-link" href="/likes">Likes</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/blocked">Bloqué</a>
           </li>
           <li class="nav-item">
@@ -88,11 +91,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/77127c120b.js"></script>
 <script type="text/javascript">
-    window.addEventListener("beforeunload", function (e) {
-        document.location.href = "/users/sign_out";
-        return confirmationMessage;                            //Webkit, Safari, Chrome
-    });
-
     var IDLE_TIMEOUT = 1200; //seconds
     var _idleSecondsCounter = 0;
     document.onclick = function() {

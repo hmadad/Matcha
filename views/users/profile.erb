@@ -27,7 +27,7 @@
   </div>
   <div class="form-group">
     <label for="age">Age<span style="color: red">*</span></label>
-    <input type="number" name="age" class="form-control" placeholder="Age" value="<%= @result[0]["age"] if @result[0]["age"]%>">
+    <input type="number" name="age" class="form-control" placeholder="Age" min="18" max="120" value="<%= @result[0]["age"] if @result[0]["age"]%>">
   </div>
   <div class="form-group">
     <label for="location">Code postal</label>
@@ -130,6 +130,12 @@
   </button>
   <span id="notmsg"></span>
 </div>
+<div id="blknot" class="alert alert-warning alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
+</div>
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("blk");
     var blkmsg = document.getElementById("notmsg");
@@ -142,7 +148,6 @@
         (function(){
             var show = function(el)
             {
-                console.log(blkmsg);
                 return function(msg)
                 {
                     tab = msg.split(',');
@@ -150,8 +155,6 @@
                     id = tab[2];
                     message = tab[1];
                     user_for = tab[3]
-                    console.log(msg)
-                    console.log(status)
                     if (status == "msg")
                     {
                         if (message.trim().length !== 0)
@@ -181,7 +184,6 @@
                     }
                     else if (status == "not")
                     {
-                        console.log('Je usis la')
                         if (user_id == user_for)
                         {
                             var nav2 = document.getElementById("tesnot");
@@ -193,13 +195,12 @@
                                 nav2.innerHTML = '' + res;
                             }
                             objDiv2.style.display = 'block';
-                            blkmsg2.innerHTML = 'Vous avez un nouveau message';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }

@@ -30,42 +30,70 @@
     </form>
   </div>
 </div>
+<div id="blknot" class="alert alert-warning alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
+</div>
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("corps");
     var user_id = <%= session[:auth]["id"] %>;
     var other_id = <%= @other_user[0]["id"] %>;
     objDiv.scrollTop = objDiv.scrollHeight;
+    var objDiv2 = document.getElementById("blknot");
+    var blkmsg2 = document.getElementById("notnot");
+    objDiv2.style.display = 'none';
     window.onload = function(){
         (function(){
             var show = function(el)
             {
-                console.log("el = " + el);
                 return function(msg)
                 {
                     tab = msg.split(',');
                     id = tab[2];
                     message = tab[1];
-                    if (message.trim().length !== 0)
+                    status = tab[0]
+                    user_for = tab[3]
+                    if (status == "msg")
                     {
-                        if (user_id == id)
+                        if (message.trim().length !== 0)
                         {
-                            el.innerHTML = el.innerHTML + '<div class="col-md-12"> <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;">' + message + '</p></div>';
+                            if (user_id == id)
+                            {
+                                el.innerHTML = el.innerHTML + '<div class="col-md-12"> <p class="pull-right" style="margin: 5px 0; border-radius: 10px; background-color: #b641ff; padding: 10px;">' + message + '</p></div>';
+                            }
+                            else if (other_id == id)
+                            {
+                                el.innerHTML = el.innerHTML + '<div class="col-md-12"> <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;"> <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;">' + message + '</p></div>';
+                                var xmlhttp = new XMLHttpRequest();
+                                xmlhttp.open("GET", "http://localhost:3000/messages/<%= params[:id] %>/check", true);
+                                xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xmlhttp.send();
+                            }
+                            var objDiv = document.getElementById("corps");
+                            objDiv.scrollTop = objDiv.scrollHeight;
                         }
-                        else if (other_id == id)
+                    }
+                    else if (status == "not")
+                    {
+                        if (user_id == user_for)
                         {
-                            el.innerHTML = el.innerHTML + '<div class="col-md-12"> <img class="pull-left" src="<%= @other_user[0]["profile"] %>" alt="<%= @other_user[0]["username"] %>" style="width: 50px; height: 40px; border-radius: 5px; margin-top: 8px; margin-right: 5px;"> <p class="pull-left" style="margin: 5px 0; border-radius: 10px; background-color: #e9ebee; padding: 10px;">' + message + '</p></div>';
-                            var xmlhttp = new XMLHttpRequest();
-                            xmlhttp.open("GET", "http://localhost:3000/messages/<%= params[:id] %>/check", true);
-                            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xmlhttp.send();
+                            var nav2 = document.getElementById("tesnot");
+                            if (nav2.innerHTML === "")
+                                nav2.innerHTML = '1';
+                            else
+                            {
+                                res = parseInt(nav2.innerHTML) + 1;
+                                nav2.innerHTML = '' + res;
+                            }
+                            objDiv2.style.display = 'block';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
-                        var objDiv = document.getElementById("corps");
-                        objDiv.scrollTop = objDiv.scrollHeight;
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            console.log('ws://' + window.location.host + window.location.pathname)
             ws.onmessage = function(m) { show(m.data); };
             var sender = function(f){
                 var message     = document.getElementById('message');
@@ -82,11 +110,5 @@
                 }
             }(document.getElementById('form'));
         })();
-    }
-</script>
-<script type="text/javascript" charset="utf-8">
-    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-    function sendnot(id, id_for) {
-        ws.send('not,' + ',' + id + ',' + id_for);
     }
 </script>

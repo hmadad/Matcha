@@ -1,0 +1,167 @@
+<h1>Personnes like</h1>
+<hr>
+<% if @result %>
+    <div class="row">
+      <% @result.each do |row| %>
+          <%
+            @user = findUser(row['user_liked'])[0]
+            other_coords = loc(@user["location"].to_i)
+            distance = distance(@coord[0].to_f, @coord[1].to_f, other_coords[0].to_f, other_coords[1].to_f)
+            if !isBlocked?(@user['id'])
+              if distance.round(1) == 0.0
+                distance = "Meme ville"
+              else
+                distance = distance.round(1).to_s + " KM"
+              end
+          %>
+                  <div class="card" style="width: 20rem; margin: 10px 30px;">
+                    <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
+                      <p class="pull-left" style="color: white">
+                        <% if isOnline?(@user["id"]) %>
+                            <i class="fa fa-circle pull-left" aria-hidden="true" style="color: green; margin-top: 2px"></i>
+                        <% else %>
+                            <i class="fa fa-circle pull-left" aria-hidden="true" style="color: grey;"></i>
+                        <% end %>
+                        <b><%= distance %></b>
+                      </p>
+                      <a data-toggle="modal" href="#myModal<%= @user["id"] %>">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
+                        </button>
+                      </a>
+                    </div>
+                    <a href="/users/profile/<%= @user["id"] %>" style="color: #292b2c; text-decoration: none">
+                      <div class="img-cadre" style="width: 100%; background-color: black">
+                        <img class="mx-auto d-block" src="<%= @user["profile"] %>" alt="" width="200" height="200" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                      </div>
+                    </a>
+                    <div class="card-block">
+                      <h4 class="card-title"><%= @user["score"] %><i class="fa fa-star" aria-hidden="true" style="color: deepskyblue;"></i> <%= @user["username"] %></h4>
+                      <p class="card-text"><%= @user["age"] %> ans</p>
+                      <p class="card-text"><%= @user["bio"] %></p>
+                      <%
+                        all_user = session[:auth]["interest"].split(", ")
+                        all_other = @user["interest"].split(", ")
+                        comun = all_user & all_other
+                        reste = all_other - all_user
+                      %>
+                      <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
+                      <% if !isOnline?(@user["id"]) %>
+                          <p>Dernière connection: <%= @user["last_connection"].to_s[0, 16] %></p>
+                      <% end %>
+                      <% if isLiked?(@user["id"]) %>
+                          <form action="/likes/dislike/<%= @user["id"] %>" method="POST">
+                            <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @user["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                          </form>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="myModal<%= @user["id"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Bloquer <i class="fa fa-ban" aria-hidden="true"></i></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= @user["username"] %></b></span>?
+                        </div>
+                        <div class="modal-footer">
+                          <form action="/reported/<%= @user["id"] %>" method="POST">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
+                          </form>
+                          <form action="/blocked/<%= @user["id"] %>" method="POST">
+                            <button type="submit" class="btn btn-primary">Bloquer</button>
+                          </form>
+                          <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              <%
+                end
+                end
+              %>
+    </div>
+<% end %>
+<div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notmsg"></span>
+</div>
+<div id="blknot" class="alert alert-warning alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
+</div>
+<script type="text/javascript" charset="utf-8">
+    var objDiv = document.getElementById("blk");
+    var blkmsg = document.getElementById("notmsg");
+    var objDiv2 = document.getElementById("blknot");
+    var blkmsg2 = document.getElementById("notnot");
+    var user_id = <%= session[:auth]["id"] %>;
+    objDiv.style.display = 'none';
+    objDiv2.style.display = 'none';
+    window.onload = function(){
+        (function(){
+            var show = function(el)
+            {
+                return function(msg)
+                {
+                    tab = msg.split(',');
+                    status = tab[0]
+                    id = tab[2];
+                    message = tab[1];
+                    user_for = tab[3]
+                    if (status == "msg")
+                    {
+                        if (message.trim().length !== 0)
+                        {
+                            if (user_id == user_for)
+                            {
+                                var nav = document.getElementById("tes");
+                                if (nav.innerHTML === "")
+                                    nav.innerHTML = '1';
+                                else
+                                {
+                                    res = parseInt(nav.innerHTML) + 1;
+                                    nav.innerHTML = '' + res;
+                                }
+                                objDiv.style.display = 'block';
+                                blkmsg.innerHTML = 'Vous avez un nouveau message';
+                            }
+                        }
+                    }
+                    else if (status == "not")
+                    {
+                        if (user_id == user_for)
+                        {
+                            var nav2 = document.getElementById("tesnot");
+                            if (nav2.innerHTML === "")
+                                nav2.innerHTML = '1';
+                            else
+                            {
+                                res = parseInt(nav2.innerHTML) + 1;
+                                nav2.innerHTML = '' + res;
+                            }
+                            objDiv2.style.display = 'block';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
+                        }
+                    }
+                }
+            }(document.getElementById('list'));
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+            ws.onmessage = function(m) { show(m.data); };
+        })();
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    function sendnot(id, id_for) {
+        ws.send('not,' + ',' + id + ',' + id_for);
+    }
+</script>

@@ -46,7 +46,7 @@ class Matcha < Sinatra::Application
       redirect :"/messages"
     end
     @result = []
-    @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}'").each do |row|
+    @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}' AND view = '1'").each do |row|
       @result << row
     end
     if @result.empty?
@@ -86,6 +86,7 @@ class Matcha < Sinatra::Application
     if !isConnected?
       redirect "/"
     end
+
     result = []
     @@client.query("SELECT * FROM conversations WHERE (user_id1 = #{session[:auth]['id']} OR user_id2 = #{session[:auth]['id']}) AND id = '#{params[:id]}' AND view = '1'").each do |row|
       result << row
@@ -102,6 +103,9 @@ class Matcha < Sinatra::Application
   post "/messages/:id" do
     if !isConnected?
       redirect "/"
+    end
+    if isBlocked?(params[:id])
+      redirect :"/messages"
     end
     @result = []
     @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}'").each do |row|

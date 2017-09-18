@@ -2,7 +2,36 @@ class Matcha < Sinatra::Application
 
   # ====================================================  GET PAGE  ====================================================
 
-
+  get "/likes" do
+    if !isConnected?
+      redirect "/"
+    end
+    @result = []
+    @@client.query("SELECT * FROM likes WHERE user_id = '#{session[:auth]["id"]}'").each do |row|
+      @result << row
+    end
+    if session[:auth]["location"] && session[:auth]["location"].to_i != 0
+      @coord = loc(session[:auth]["location"].to_i)
+    else
+      @coord = stalkLocation(request.ip)
+    end
+    if !request.websocket?
+      erb :"likes"
+    else
+      request.websocket do |ws|
+        ws.onopen do
+          settings.sockets << ws
+        end
+        ws.onmessage do |msg|
+          EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        end
+        ws.onclose do
+          warn("websocket closed")
+          settings.sockets.delete(ws)
+        end
+      end
+    end
+  end
 
   # ====================================================  POST PAGE  ===================================================
   post "/likes/like/:id" do

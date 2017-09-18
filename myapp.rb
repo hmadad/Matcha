@@ -43,6 +43,7 @@ class Matcha < Sinatra::Application
 						 `interest` longtext DEFAULT NULL,
 						 `liked` longtext DEFAULT NULL,
 						 `score` integer NOT NULL DEFAULT '0',
+             `report` integer NOT NULL DEFAULT '0',
              `vu` integer NOT NULL DEFAULT '0',
 						 `created_at` DATETIME NOT NULL,
 						 `confirmation_date` DATETIME,
@@ -58,6 +59,7 @@ class Matcha < Sinatra::Application
              `image4` longtext DEFAULT NULL,
              `image5` longtext DEFAULT NULL,
              `is_connected` integer NOT NULL DEFAULT '0',
+             `last_connection` DATETIME NOT NULL,
 						 PRIMARY KEY (`id`)
 					   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;")
 
@@ -165,8 +167,8 @@ class Matcha < Sinatra::Application
     return result
   end
 
-  def stalkLocation
-    url = 'http://freegeoip.net/json/'
+  def stalkLocation(ip)
+    url = "http://freegeoip.net/json/#{ip}"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     JSON.parse(response)
@@ -223,6 +225,33 @@ class Matcha < Sinatra::Application
       return true
     end
     return false
+  end
+
+  def isMatched?(id)
+    result = []
+    @@client.query("SELECT * FROM likes WHERE (user_id = '#{session[:auth]["id"]}' AND user_liked = '#{id}') OR (user_id = '#{id}' AND user_liked = '#{session[:auth]["id"]}')").each do |row|
+      result << row
+    end
+    puts result.inspect
+    if result.length == 2
+      return true
+    end
+    return false
+  end
+
+
+  def findConv(id)
+    if isMatched?(id)
+      conv = []
+      @@client.query("SELECT * FROM conversations WHERE (user_id1 = '#{session[:auth]["id"]}' OR user_id2 = '#{session[:auth]["id"]}') AND (user_id1 = '#{id}' OR user_id2 = '#{id}')").each do |row|
+        conv << row
+      end
+      if !conv.empty?
+        return conv[0]
+      end
+      return nil
+    end
+    return nil
   end
 
   def countNbMsg

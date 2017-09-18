@@ -1,30 +1,52 @@
 <% if @result %>
     <div class="row" style="margin-top: 50px">
       <div class="col-md-9">
-        <h2><%= @result["username"] %></h2>
+        <h2>
+          <% if isOnline?(@result["id"]) %>
+              <i class="fa fa-circle pull-left" aria-hidden="true" style="color: green; margin-top: 2px"></i>
+          <% else %>
+              <i class="fa fa-circle pull-left" aria-hidden="true" style="color: grey;"></i>
+          <% end %>
+          <%= @result["username"] %>
+        </h2>
         <hr>
         <p>Nom: <%= @result["firstname"] %></p>
 <p>Prenom: <%= @result["lastname"] %></p>
 <p>Age: <%= @result["age"] %></p>
 <p>Sexe: <%= @result["sexe"] %></p>
+<p>Location: <%= @result["location"] %></p>
 <p>Recherche: <%= @result["orientation"] %></p>
 </div>
 <div class="col-md-3">
-  <img class="rounded mx-auto d-block" src="<%= @result["profile"] %>" alt="" style="width: 400px; height: 380px">
+  <img class="rounded mx-auto d-block" src="<%= @result["profile"] %>" alt="" style="width: 100%; height: 100%">
 </div>
 <div class="col-md-12">
   <p>Biographie: <%= @result["bio"] %></p>
 </div>
-      <% if isLiked?(@result["id"]) %>
-          <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
-            <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-          </form>
-      <% else %>
-          <form action="/likes/like/<%= @result["id"] %>" method="POST">
-            <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-          </form>
-      <% end %>
-
+      <div class="col-md-12">
+        <% if isLiked?(@result["id"]) %>
+            <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
+              <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+            </form>
+            <%
+                if isMatched?(@result["id"])
+                    @conv = findConv(@result["id"])
+                    puts @conv['id'].inspect
+            %>
+                <a href="/messages/<%= @conv['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(@conv['id']) if countMsg(@conv['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
+            <% end %>
+        <% else %>
+            <form action="/likes/like/<%= @result["id"] %>" method="POST">
+              <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+            </form>
+        <% end %>
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-3"><img class="rounded mx-auto d-block" src="<%= @result["image2"] %>" alt="" style="width: 100%; height: 100%"></div>
+        <div class="col-md-3"><img class="rounded mx-auto d-block" src="<%= @result["image3"] %>" alt="" style="width: 100%; height: 100%"></div>
+        <div class="col-md-3"><img class="rounded mx-auto d-block" src="<%= @result["image4"] %>" alt="" style="width: 100%; height: 100%"></div>
+        <div class="col-md-3"><img class="rounded mx-auto d-block" src="<%= @result["image5"] %>" alt="" style="width: 100%; height: 100%"></div>
+      </div>
 </div>
 
 <% else %>
@@ -35,6 +57,12 @@
     <span aria-hidden="true">&times;</span>
   </button>
   <span id="notmsg"></span>
+</div>
+<div id="blknot" class="alert alert-warning alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
 </div>
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("blk");
@@ -48,7 +76,6 @@
         (function(){
             var show = function(el)
             {
-                console.log(blkmsg);
                 return function(msg)
                 {
                     tab = msg.split(',');
@@ -56,8 +83,6 @@
                     id = tab[2];
                     message = tab[1];
                     user_for = tab[3]
-                    console.log(msg)
-                    console.log(status)
                     if (status == "msg")
                     {
                         if (message.trim().length !== 0)
@@ -87,7 +112,6 @@
                     }
                     else if (status == "not")
                     {
-                        console.log('Je usis la')
                         if (user_id == user_for)
                         {
                             var nav2 = document.getElementById("tesnot");
@@ -99,13 +123,12 @@
                                 nav2.innerHTML = '' + res;
                             }
                             objDiv2.style.display = 'block';
-                            blkmsg2.innerHTML = 'Vous avez un nouveau message';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }

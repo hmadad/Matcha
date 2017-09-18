@@ -5,7 +5,7 @@
     <form action="/search" class="form-inline" method="POST">
       <div class="col-md-12" style="margin-bottom: 20px;">
         <div class="form-group">
-          <input type="text" class="form-control" name="search" placeholder="Exemple: Cuty" style="width: 100%">
+          <input type="text" class="form-control" name="search" placeholder="Tag Exemple: Cuty" style="width: 100%">
         </div>
       </div>
       <div class="col-md-12"  style="margin-bottom: 20px;">
@@ -13,15 +13,15 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-6">
-                <input type="number" class="form-control" name="min" min="18" max="120" placeholder="Age Minimum: (Min. 18)" style="width: 100%">
+                <input type="number" class="form-control" name="min" min="18" max="120" placeholder="Age Min: (Min. 18)" style="width: 100%">
               </div>
               <div class="col-md-6">
-                <input type="number" class="form-control" name="max" min="18" max="120" placeholder="Age Maximum: (Max. 120)" style="width: 100%">
+                <input type="number" class="form-control" name="max" min="18" max="120" placeholder="Age Max: (Max. 120)" style="width: 100%">
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <input type="number" class="form-control" name="km" min="0" placeholder="Distance Maximum" style="width: 100%">
+            <input type="number" class="form-control" name="km" min="0" placeholder="Distance Max en KM" style="width: 100%">
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
   <div class="row">
       <% @result.each do |row| %>
         <%
-          if row["location"] && row["location"].to_i != 0
+          if row["location"] && row["location"].to_i != 0 && !isLiked?(row["id"])
             other_coords = loc(row["location"].to_i)
             distance = distance(@coord[0].to_f, @coord[1].to_f, other_coords[0].to_f, other_coords[1].to_f)
             if ((params[:km].to_s == "illimite" || @km) || distance < params[:km].to_f ) && !isBlocked?(row['id'])
@@ -58,21 +58,30 @@
                 distance = distance.round(1).to_s + " KM"
               end
         %>
-              <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
                 <div class="card" style="width: 20rem; margin: 10px 30px;">
                   <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
-                    <p class="pull-left" style="color: white"><b><%= distance %></b></p>
+                    <p class="pull-left" style="color: white">
+                      <% if isOnline?(row["id"]) %>
+                          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: green; margin-top: 2px"></i>
+                      <% else %>
+                          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: grey;"></i>
+                      <% end %>
+                      <b><%= distance %></b>
+                    </p>
                     <a data-toggle="modal" href="#myModal<%= row["id"] %>">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
                       </button>
                     </a>
                   </div>
-                  <div class="img-cadre" style="width: 100%; background-color: black">
-                    <img class="mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                  </div>
+                  <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
+                    <div class="img-cadre" style="width: 100%; background-color: black">
+                      <img class="mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                    </div>
+                  </a>
                   <div class="card-block">
-                    <h4 class="card-title"><%= row["username"] %></h4>
+                    <h4 class="card-title"><%= row["score"] %><i class="fa fa-star" aria-hidden="true" style="color: deepskyblue;"></i> <%= row["username"] %></h4>
+                    <p class="card-text"><%= row["age"] %> ans</p>
                     <p class="card-text"><%= row["bio"] %></p>
                     <%
                       all_user = session[:auth]["interest"].split(", ")
@@ -81,6 +90,9 @@
                       reste = all_other - all_user
                     %>
                     <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
+                    <% if !isOnline?(row["id"]) %>
+                        <p>Dernière connection: <%= row["last_connection"].to_s[0, 16] %></p>
+                    <% end %>
                     <% if isLiked?(row["id"]) %>
                         <form action="/likes/dislike/<%= row["id"] %>" method="POST">
                           <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
@@ -92,7 +104,6 @@
                     <% end %>
                   </div>
                 </div>
-              </a>
                 <div class="modal fade" id="myModal<%= row["id"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -106,10 +117,13 @@
                         Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= row["username"] %></b></span>?
                       </div>
                       <div class="modal-footer">
-                        <form action="/blocked/<%= row["id"] %>" method="POST">
-                          <button type="submit" class="btn btn-primary">Oui</button>
+                        <form action="/reported/<%= row["id"] %>" method="POST">
+                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
                         </form>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                        <form action="/blocked/<%= row["id"] %>" method="POST">
+                          <button type="submit" class="btn btn-primary">Bloquer</button>
+                        </form>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
                       </div>
                     </div>
                   </div>
@@ -127,6 +141,12 @@
   </button>
   <span id="notmsg"></span>
 </div>
+<div id="blknot" class="alert alert-warning alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <span id="notnot"></span>
+</div>
 <script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("blk");
     var blkmsg = document.getElementById("notmsg");
@@ -139,7 +159,6 @@
         (function(){
             var show = function(el)
             {
-                console.log(blkmsg);
                 return function(msg)
                 {
                     tab = msg.split(',');
@@ -147,8 +166,6 @@
                     id = tab[2];
                     message = tab[1];
                     user_for = tab[3]
-                    console.log(msg)
-                    console.log(status)
                     if (status == "msg")
                     {
                         if (message.trim().length !== 0)
@@ -170,7 +187,6 @@
                     }
                     else if (status == "not")
                     {
-                        console.log('Je usis la')
                         if (user_id == user_for)
                         {
                             var nav2 = document.getElementById("tesnot");
@@ -182,13 +198,12 @@
                                 nav2.innerHTML = '' + res;
                             }
                             objDiv2.style.display = 'block';
-                            blkmsg2.innerHTML = 'Vous avez un nouveau message';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }

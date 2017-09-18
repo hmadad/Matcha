@@ -1,15 +1,23 @@
 <h1>Bienvenue sur Matcha</h1>
-<% if !session[:auth].nil? %>
-    <p>vous êtes connecté en tant que: <%= session[:auth]["username"] %></p>
     <div class="row">
-      <% @result.each do |row| %>
+      <%
+        @result.each do |row|
+          if !isBlocked?(row['id'])
+      %>
           <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
             <div class="card" style="width: 20rem; margin: 10px 30px;">
+              <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
+                <a data-toggle="modal" href="#myModal<%= row["id"] %>">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
+                  </button>
+                </a>
+              </div>
               <div class="img-cadre" style="width: 100%; background-color: black">
                 <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
               </div>
               <div class="card-block">
-                <h4 class="card-title"><%= row["username"] %></h4>
+                <h4 class="card-title"><%= row["score"] %><i class="fa fa-star" aria-hidden="true" style="color: deepskyblue;"></i> <%= row["username"] %></h4>
                 <p class="card-text"><%= row["bio"] %></p>
                 <p><%= row["interest"] %></p>
                 <% if isLiked?(row["id"]) %>
@@ -24,9 +32,33 @@
               </div>
             </div>
           </a>
+          <div class="modal fade" id="myModal<%= row["id"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Bloquer <i class="fa fa-ban" aria-hidden="true"></i></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= row["username"] %></b></span>?
+                </div>
+                <div class="modal-footer">
+                  <form action="/reported/<%= row["id"] %>" method="POST">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
+                  </form>
+                  <form action="/blocked/<%= row["id"] %>" method="POST">
+                    <button type="submit" class="btn btn-primary">Bloquer</button>
+                  </form>
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
       <% end %>
     </div>
-<% end %>
 
 <div id="blk" class="alert alert-success alert-dismissible fade show pull-right" role="alert" style="height: 50px; bottom: 0">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -52,7 +84,6 @@
         (function(){
             var show = function(el)
             {
-                console.log(blkmsg);
                 return function(msg)
                 {
                     tab = msg.split(',');
@@ -60,8 +91,6 @@
                     id = tab[2];
                     message = tab[1];
                     user_for = tab[3]
-                    console.log(msg)
-                    console.log(status)
                     if (status == "msg")
                     {
                         if (message.trim().length !== 0)
@@ -83,7 +112,6 @@
                     }
                     else if (status == "not")
                     {
-                        console.log('Je usis la')
                         if (user_id == user_for)
                         {
                             var nav2 = document.getElementById("tesnot");
@@ -95,13 +123,12 @@
                                 nav2.innerHTML = '' + res;
                             }
                             objDiv2.style.display = 'block';
-                            blkmsg2.innerHTML = 'Vous avez un nouveau message';
+                            blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
-            console.log(ws);
             ws.onmessage = function(m) { show(m.data); };
         })();
     }
