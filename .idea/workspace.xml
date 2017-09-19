@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/search.rb" afterPath="$PROJECT_DIR$/routes/search.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,8 +65,8 @@
       <file leaf-file-name="search.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/search.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state relative-caret-position="675">
+              <caret line="80" column="47" lean-forward="true" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -191,7 +192,6 @@
         <option value="$PROJECT_DIR$/views/users/profile.erb" />
         <option value="$PROJECT_DIR$/views/messages/home_message.erb" />
         <option value="$PROJECT_DIR$/views/notifications.erb" />
-        <option value="$PROJECT_DIR$/routes/search.rb" />
         <option value="$PROJECT_DIR$/views/search.erb" />
         <option value="$PROJECT_DIR$/views/layout.erb" />
         <option value="$PROJECT_DIR$/views/likes.erb" />
@@ -206,6 +206,7 @@
         <option value="$PROJECT_DIR$/routes/users.rb" />
         <option value="$PROJECT_DIR$/routes/home.rb" />
         <option value="$PROJECT_DIR$/routes/messages.rb" />
+        <option value="$PROJECT_DIR$/routes/search.rb" />
       </list>
     </option>
   </component>
@@ -626,12 +627,12 @@
       <workItem from="1505638003821" duration="9027000" />
       <workItem from="1505721126458" duration="132000" />
       <workItem from="1505721326509" duration="16286000" />
-      <workItem from="1505809208093" duration="4530000" />
+      <workItem from="1505809208093" duration="5235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396155000" />
+    <option name="totallyTimeSpent" value="396860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1384" height="1440" extended-state="0" />
@@ -993,8 +994,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/search.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        <state relative-caret-position="675">
+          <caret line="80" column="47" lean-forward="true" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
           <folding />
         </state>
       </provider>
