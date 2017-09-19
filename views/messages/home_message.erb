@@ -46,8 +46,8 @@
                         <h4 class="card-title"><%= @result["username"] %></h4>
                         <p class="card-text"><%= @result["bio"] %></p>
                         <%
-                          all_user = session[:auth]["interest"].split(", ")
-                          all_other = @result["interest"].split(", ")
+                          all_user = session[:auth]["interest"].split(", ") if session[:auth]["interest"]
+                          all_other = row["interest"].split(", ") if row["interest"]
                           comun = all_user & all_other
                           reste = all_other - all_user
                         %>
