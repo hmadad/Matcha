@@ -84,8 +84,16 @@
                     <p class="card-text"><%= row["age"] %> ans</p>
                     <p class="card-text"><%= row["bio"] %></p>
                     <%
-                      all_user = session[:auth]["interest"].split(", ") if session[:auth]["interest"]
-                      all_other = row["interest"].split(", ") if row["interest"]
+                      if (session[:auth]["interest"] && !session[:auth]["interest"].empty?)
+                        all_user = session[:auth]["interest"].split(", ")
+                      else
+                        all_user = []
+                      end
+                      if (row["interest"] && !row["interest"].empty?)
+                        all_other = row["interest"].split(", ") if row["interest"]
+                      else
+                        all_other = []
+                      end
                       comun = all_user & all_other
                       reste = all_other - all_user
                     %>

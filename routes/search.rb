@@ -82,8 +82,16 @@ class Matcha < Sinatra::Application
     end
     if params[:order] == "tags"
       @result.each do |row|
-        all_user = session[:auth]["interest"].split(", ") if session[:auth]["interest"]
-        all_other = row["interest"].split(", ") if row["interest"]
+        if (session[:auth]["interest"] && !session[:auth]["interest"].empty?)
+          all_user = session[:auth]["interest"].split(", ")
+        else
+          all_user = []
+        end
+        if (row["interest"] && !row["interest"].empty?)
+          all_other = row["interest"].split(", ") if row["interest"]
+        else
+          all_other = []
+        end
         comun = all_user & all_other
         taille = comun.length
         row = {:user => row, :lenght => taille}
@@ -154,6 +162,16 @@ class Matcha < Sinatra::Application
     end
     if params[:order] == "tags"
       @result.each do |row|
+        if (session[:auth]["interest"] && !session[:auth]["interest"].empty?)
+          all_user = session[:auth]["interest"].split(", ")
+        else
+          all_user = []
+        end
+        if (row["interest"] && !row["interest"].empty?)
+          all_other = row["interest"].split(", ") if row["interest"]
+        else
+          all_other = []
+        end
         comun = all_user & all_other
         taille = comun.length
         row = {:user => row, :lenght => taille}
