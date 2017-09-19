@@ -21,7 +21,7 @@ class Matcha < Sinatra::Application
     if session[:auth]["location"] && session[:auth]["location"].to_i != 0
       @coord = loc(session[:auth]["location"].to_i)
     else
-      @coord = stalkLocation
+      @coord = stalkLocation(request.ip)
     end
     if !request.websocket?
       erb :"messages/home_message"

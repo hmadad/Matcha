@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/home.rb" afterPath="$PROJECT_DIR$/routes/home.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/messages.rb" afterPath="$PROJECT_DIR$/routes/messages.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,16 +50,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="blocked.erb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/users/blocked.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="messages.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
           <provider selected="true" editor-type-id="text-editor">
@@ -77,6 +67,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="680">
               <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/messages.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="7" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -112,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/home.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="40" lean-forward="true" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+            <state relative-caret-position="480">
+              <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -198,7 +198,6 @@
         <option value="$PROJECT_DIR$/views/likes.erb" />
         <option value="$PROJECT_DIR$/myapp.rb" />
         <option value="$PROJECT_DIR$/views/messages/messages.erb" />
-        <option value="$PROJECT_DIR$/routes/messages.rb" />
         <option value="$PROJECT_DIR$/views/users/blocked.erb" />
         <option value="$PROJECT_DIR$/routes/blocked.rb" />
         <option value="$PROJECT_DIR$/views/index.erb" />
@@ -207,6 +206,7 @@
         <option value="$PROJECT_DIR$/routes/profile.rb" />
         <option value="$PROJECT_DIR$/routes/users.rb" />
         <option value="$PROJECT_DIR$/routes/home.rb" />
+        <option value="$PROJECT_DIR$/routes/messages.rb" />
       </list>
     </option>
   </component>
@@ -627,12 +627,12 @@
       <workItem from="1505638003821" duration="9027000" />
       <workItem from="1505721126458" duration="132000" />
       <workItem from="1505721326509" duration="16286000" />
-      <workItem from="1505809208093" duration="4234000" />
+      <workItem from="1505809208093" duration="4375000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395859000" />
+    <option name="totallyTimeSpent" value="396000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1384" height="1440" extended-state="0" />
@@ -902,14 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/messages.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="90" column="7" lean-forward="false" selection-start-line="90" selection-start-column="7" selection-end-line="90" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/search.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -939,16 +931,6 @@
         <state relative-caret-position="585">
           <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="51" selection-end-column="35" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
-          <folding>
-            <marker date="1505811519000" expanded="true" signature="3147:3224" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -994,8 +976,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/home.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="40" lean-forward="true" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+        <state relative-caret-position="480">
+          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+          <folding>
+            <marker date="1505811519000" expanded="true" signature="3147:3224" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/messages.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="7" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="7" />
           <folding />
         </state>
       </provider>
