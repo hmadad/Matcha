@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/search.rb" afterPath="$PROJECT_DIR$/routes/search.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.erb" afterPath="$PROJECT_DIR$/views/index.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/likes.erb" afterPath="$PROJECT_DIR$/views/likes.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/messages/home_message.erb" afterPath="$PROJECT_DIR$/views/messages/home_message.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/search.erb" afterPath="$PROJECT_DIR$/views/search.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="search.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/search.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2640">
-              <caret line="176" column="47" lean-forward="true" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+            <state relative-caret-position="840">
+              <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -94,10 +89,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="like.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="like.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/like.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
+            <state relative-caret-position="1275">
               <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
               <folding />
             </state>
@@ -629,12 +624,12 @@
       <workItem from="1505638003821" duration="9027000" />
       <workItem from="1505721126458" duration="132000" />
       <workItem from="1505721326509" duration="16286000" />
-      <workItem from="1505809208093" duration="7183000" />
+      <workItem from="1505809208093" duration="8172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="398808000" />
+    <option name="totallyTimeSpent" value="399797000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1384" height="1440" extended-state="0" />
@@ -988,18 +983,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/search.rb">
+    <entry file="file://$PROJECT_DIR$/routes/like.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2640">
-          <caret line="176" column="47" lean-forward="true" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+        <state relative-caret-position="1275">
+          <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/like.rb">
+    <entry file="file://$PROJECT_DIR$/routes/search.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+        <state relative-caret-position="840">
+          <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
           <folding />
         </state>
       </provider>
