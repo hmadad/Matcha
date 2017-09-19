@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/blocked.rb" afterPath="$PROJECT_DIR$/routes/blocked.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/like.rb" afterPath="$PROJECT_DIR$/routes/like.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/messages.rb" afterPath="$PROJECT_DIR$/routes/messages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/profile.rb" afterPath="$PROJECT_DIR$/routes/profile.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.erb" afterPath="$PROJECT_DIR$/views/index.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/messages/messages.erb" afterPath="$PROJECT_DIR$/views/messages/messages.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/blocked.erb" afterPath="$PROJECT_DIR$/views/users/blocked.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/user.erb" afterPath="$PROJECT_DIR$/views/users/user.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/users.rb" afterPath="$PROJECT_DIR$/routes/users.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,16 +40,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="search.erb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/search.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.erb">
           <provider selected="true" editor-type-id="text-editor">
@@ -99,11 +82,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="profile.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/profile.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="127" column="47" lean-forward="true" selection-start-line="127" selection-start-column="47" selection-end-line="127" selection-end-column="47" />
+            <state relative-caret-position="2618">
+              <caret line="267" column="543" lean-forward="true" selection-start-line="267" selection-start-column="543" selection-end-line="267" selection-end-column="543" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/users.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="809">
+              <caret line="137" column="29" lean-forward="true" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -173,6 +166,7 @@
       <find>tes</find>
       <find>is</find>
       <find>discu</find>
+      <find>tag</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,7 +192,6 @@
         <option value="$PROJECT_DIR$/views/users/profile.erb" />
         <option value="$PROJECT_DIR$/views/messages/home_message.erb" />
         <option value="$PROJECT_DIR$/views/notifications.erb" />
-        <option value="$PROJECT_DIR$/routes/users.rb" />
         <option value="$PROJECT_DIR$/routes/search.rb" />
         <option value="$PROJECT_DIR$/views/search.erb" />
         <option value="$PROJECT_DIR$/views/layout.erb" />
@@ -213,6 +206,7 @@
         <option value="$PROJECT_DIR$/views/users/user.erb" />
         <option value="$PROJECT_DIR$/routes/like.rb" />
         <option value="$PROJECT_DIR$/routes/profile.rb" />
+        <option value="$PROJECT_DIR$/routes/users.rb" />
       </list>
     </option>
   </component>
@@ -633,16 +627,16 @@
       <workItem from="1505638003821" duration="9027000" />
       <workItem from="1505721126458" duration="132000" />
       <workItem from="1505721326509" duration="16286000" />
-      <workItem from="1505809208093" duration="3739000" />
+      <workItem from="1505809208093" duration="4076000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395364000" />
+    <option name="totallyTimeSpent" value="395701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1384" height="1440" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18713872" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -650,7 +644,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1529246" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1529246" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -869,14 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1004">
-          <caret line="96" column="31" lean-forward="true" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/users/sign_in.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1000,8 +986,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/profile.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="127" column="47" lean-forward="true" selection-start-line="127" selection-start-column="47" selection-end-line="127" selection-end-column="47" />
+        <state relative-caret-position="2618">
+          <caret line="267" column="543" lean-forward="true" selection-start-line="267" selection-start-column="543" selection-end-line="267" selection-end-column="543" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="809">
+          <caret line="137" column="29" lean-forward="true" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
           <folding />
         </state>
       </provider>

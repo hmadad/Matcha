@@ -126,7 +126,7 @@ class Matcha < Sinatra::Application
     end
     time = Time.new
     token = SecureRandom.hex(60)
-    @@client.query("INSERT INTO users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', password = '#{Digest::SHA256.hexdigest(@@coder.encode(params[:password]))}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}', token = '#{token}'")
+    @@client.query("INSERT INTO users SET email = '#{@@coder.encode(params[:email])}', username = '#{@@coder.encode(params[:username])}', lastname = '#{@@coder.encode(params[:lastname])}', firstname = '#{@@coder.encode(params[:firstname])}', password = '#{Digest::SHA256.hexdigest(@@coder.encode(params[:password]))}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}', token = '#{token}', last_connection = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
     flash[:success] = "Vous avez reçu un email afin de finaliser votre inscription"
     Pony.mail({
                   :to => "#{params[:email]}",
