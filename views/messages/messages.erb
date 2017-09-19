@@ -60,6 +60,7 @@
             {
                 return function(msg)
                 {
+                    console.log(msg)
                     tab = msg.split(',');
                     id = tab[2];
                     message = escapeHtml(tab[1]);
@@ -99,6 +100,13 @@
                             }
                             objDiv2.style.display = 'block';
                             blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
+                        }
+                    }
+                    else if (status == "blk")
+                    {
+                        if (user_id == user_for)
+                        {
+                            setTimeout(function(){ location.reload(); }, 2000);
                         }
                     }
                 }

@@ -23,7 +23,7 @@
             <h4 class="card-title" style="color: #5f186c">Visite <i class="fa fa-eye" aria-hidden="true"></i></h4>
         <% end %>
         <p class="card-text"><%= row["message"] %>.</p>
-        <a href="/users/profile/<%= row["user_id"] %>" class="btn btn-primary"><%= user[0]["firstname"] %> <%= user[0]["lastname"] %></a>
+        <a href="/users/profile/<%= row["user_id"] %>" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["user_id"] %>)" class="btn btn-primary"><%= user[0]["firstname"] %> <%= user[0]["lastname"] %></a>
       </div>
       <div class="card-footer text-muted">
         le: <%= row["created_at"] %>

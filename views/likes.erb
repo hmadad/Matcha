@@ -25,12 +25,12 @@
                         <b><%= distance %></b>
                       </p>
                       <a data-toggle="modal" href="#myModal<%= @user["id"] %>">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="sendblk(<%= session[:auth]["id"] %>, <%= row["id"] %>)">
                           <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
                         </button>
                       </a>
                     </div>
-                    <a href="/users/profile/<%= @user["id"] %>" style="color: #292b2c; text-decoration: none">
+                    <a href="/users/profile/<%= @user["id"] %>" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)" style="color: #292b2c; text-decoration: none">
                       <div class="img-cadre" style="width: 100%; background-color: black">
                         <img class="mx-auto d-block" src="<%= @user["profile"] %>" alt="" width="200" height="200" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
                       </div>
@@ -160,6 +160,13 @@
                             blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
+                    else if (status == "blk")
+                    {
+                        if (user_id == user_for)
+                        {
+                            setTimeout(function(){ location.reload(); }, 2000);
+                        }
+                    }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
@@ -171,5 +178,11 @@
     var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     function sendnot(id, id_for) {
         ws.send('not,' + ',' + id + ',' + id_for);
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    function sendblk(id, id_for) {
+        ws.send('blk,' + ',' + id + ',' + id_for);
     }
 </script>

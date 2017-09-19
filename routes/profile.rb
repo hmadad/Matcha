@@ -36,6 +36,9 @@ class Matcha < Sinatra::Application
     if !isConnected?
       redirect "/"
     end
+    if isBlocked?(params[:id])
+      redirect "/"
+    end
     @result = []
     @@client.query("SELECT * FROM users WHERE id = '#{params[:id]}'").each do |row|
       @result << row

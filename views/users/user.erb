@@ -132,6 +132,13 @@
                             blkmsg2.innerHTML = 'Vous avez une nouvelle notification';
                         }
                     }
+                    else if (status == "blk")
+                    {
+                        if (user_id == user_for)
+                        {
+                            setTimeout(function(){ location.reload(); }, 2000);
+                        }
+                    }
                 }
             }(document.getElementById('list'));
             var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);

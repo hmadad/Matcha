@@ -69,7 +69,7 @@ class Matcha < Sinatra::Application
       @coord = stalkLocation(request.ip)
     end
     @result = []
-    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND sexe = '#{orientation}' AND sexe = '#{orientation}' AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
+    @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND (sexe = '#{orientation}') AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
       @result << row
     end
     if (params[:min].to_i < 18 || params[:min].to_i > 120)
@@ -157,7 +157,7 @@ class Matcha < Sinatra::Application
       @coord = stalkLocation(request.ip)
     end
     @result = []
-    @@client.query("SELECT * FROM users WHERE interest REGEXP '##{params[:search]}(,|$)' AND id NOT LIKE '#{session[:auth]['id']}' AND sexe = '#{orientation}' AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
+    @@client.query("SELECT * FROM users WHERE interest REGEXP '##{params[:search]}(,|$)' AND id NOT LIKE '#{session[:auth]['id']}' AND (sexe = '#{orientation}') AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
       @result << row
     end
     if params[:order] == "tags"
