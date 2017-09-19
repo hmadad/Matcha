@@ -82,8 +82,8 @@ class Matcha < Sinatra::Application
     end
     if params[:order] == "tags"
       @result.each do |row|
-        all_user = session[:auth]["interest"].split(", ")
-        all_other = row["interest"].split(", ")
+        all_user = session[:auth]["interest"].split(", ") if session[:auth]["interest"]
+        all_other = row["interest"].split(", ") if row["interest"]
         comun = all_user & all_other
         taille = comun.length
         row = {:user => row, :lenght => taille}
