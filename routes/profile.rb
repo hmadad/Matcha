@@ -138,6 +138,10 @@ class Matcha < Sinatra::Application
           flash[:danger] = "Le format d'un de vos tag est invalide. Exemple: #tags1, #tags2"
           redirect "/users/profile"
         else
+          if row[1, row.length].include? "#"
+            flash[:danger] = "le tag ne peu pas contenir de '#' sauf pour commencer le tag"
+            redirect "/users/profile"
+          end
           result = []
           @@client.query("SELECT * FROM tags WHERE name = '#{@@coder.encode(row)}'").each do |row|
             result << row

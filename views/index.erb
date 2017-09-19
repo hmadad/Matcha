@@ -1,62 +1,94 @@
 <h1>Bienvenue sur Matcha</h1>
+<hr>
     <div class="row">
       <%
         @result.each do |row|
-          if !isBlocked?(row['id'])
       %>
-          <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
-            <div class="card" style="width: 20rem; margin: 10px 30px;">
-              <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
-                <a data-toggle="modal" href="#myModal<%= row["id"] %>">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
-                  </button>
-                </a>
-              </div>
-              <div class="img-cadre" style="width: 100%; background-color: black">
-                <img class="rounded mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200">
-              </div>
-              <div class="card-block">
-                <h4 class="card-title"><%= row["score"] %><i class="fa fa-star" aria-hidden="true" style="color: deepskyblue;"></i> <%= row["username"] %></h4>
-                <p class="card-text"><%= row["bio"] %></p>
-                <p><%= row["interest"] %></p>
-                <% if isLiked?(row["id"]) %>
-                <form action="/likes/dislike/<%= row["id"] %>" method="POST">
-                    <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                </form>
-                <% else %>
-                    <form action="/likes/like/<%= row["id"] %>" method="POST">
-                      <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-                    </form>
-                <% end %>
-              </div>
-            </div>
-          </a>
-          <div class="modal fade" id="myModal<%= row["id"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Bloquer <i class="fa fa-ban" aria-hidden="true"></i></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= row["username"] %></b></span>?
-                </div>
-                <div class="modal-footer">
-                  <form action="/reported/<%= row["id"] %>" method="POST">
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
-                  </form>
-                  <form action="/blocked/<%= row["id"] %>" method="POST">
-                    <button type="submit" class="btn btn-primary">Bloquer</button>
-                  </form>
-                  <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
-                </div>
-              </div>
-            </div>
-          </div>
-      <% end %>
+              <%
+                if row["location"] && row["location"].to_i != 0 && !isLiked?(row["id"])
+                  other_coords = loc(row["location"].to_i)
+                  distance = distance(@coord[0].to_f, @coord[1].to_f, other_coords[0].to_f, other_coords[1].to_f)
+                  if !isBlocked?(row['id'])
+                    if distance.round(1) == 0.0
+                      distance = "Meme ville"
+                    else
+                      distance = distance.round(1).to_s + " KM"
+                    end
+              %>
+                      <div class="card" style="width: 20rem; margin: 10px 30px;">
+                        <div style="width: 100%; height: 30px; padding: 5px; background-color: black">
+                          <p class="pull-left" style="color: white">
+                            <% if isOnline?(row["id"]) %>
+                                <i class="fa fa-circle pull-left" aria-hidden="true" style="color: green; margin-top: 2px"></i>
+                            <% else %>
+                                <i class="fa fa-circle pull-left" aria-hidden="true" style="color: grey;"></i>
+                            <% end %>
+                            <b><%= distance %></b>
+                          </p>
+                          <a data-toggle="modal" href="#myModal<%= row["id"] %>">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
+                            </button>
+                          </a>
+                        </div>
+                        <a href="/users/profile/<%= row["id"] %>" style="color: #292b2c; text-decoration: none">
+                          <div class="img-cadre" style="width: 100%; background-color: black">
+                            <img class="mx-auto d-block" src="<%= row["profile"] %>" alt="" width="200" height="200" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                          </div>
+                        </a>
+                        <div class="card-block">
+                          <h4 class="card-title"><%= row["score"] %><i class="fa fa-star" aria-hidden="true" style="color: deepskyblue;"></i> <%= row["username"] %></h4>
+                          <p class="card-text"><%= row["age"] %> ans</p>
+                          <p class="card-text"><%= row["bio"] %></p>
+                          <%
+                            all_user = session[:auth]["interest"].split(", ")
+                            all_other = row["interest"].split(", ")
+                            comun = all_user & all_other
+                            reste = all_other - all_user
+                          %>
+                          <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
+                          <% if !isOnline?(row["id"]) %>
+                              <p>Dernière connection: <%= row["last_connection"].to_s[0, 16] %></p>
+                          <% end %>
+                          <% if isLiked?(row["id"]) %>
+                              <form action="/likes/dislike/<%= row["id"] %>" method="POST">
+                                <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                              </form>
+                          <% else %>
+                              <form action="/likes/like/<%= row["id"] %>" method="POST">
+                                <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                              </form>
+                          <% end %>
+                        </div>
+                      </div>
+                      <div class="modal fade" id="myModal<%= row["id"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Bloquer <i class="fa fa-ban" aria-hidden="true"></i></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= row["username"] %></b></span>?
+                            </div>
+                            <div class="modal-footer">
+                              <form action="/reported/<%= row["id"] %>" method="POST">
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
+                              </form>
+                              <form action="/blocked/<%= row["id"] %>" method="POST">
+                                <button type="submit" class="btn btn-primary">Bloquer</button>
+                              </form>
+                              <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <%
+                    end
+                    end
+                  %>
       <% end %>
     </div>
 

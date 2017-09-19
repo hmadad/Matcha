@@ -56,8 +56,10 @@ class Matcha < Sinatra::Application
     end
     time = Time.new
     @@client.query("INSERT INTO blocked SET user_id = '#{session[:auth]["id"]}', user_blocked = '#{params[:id]}', created_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'")
-    conv = findConv(params[:id])
-    @@client.query("UPDATE conversations SET view = '0' WHERE id = '#{conv['id']}'")
+    if isMatched?(params[:id])
+      conv = findConv(params[:id])
+      @@client.query("UPDATE conversations SET view = '0' WHERE id = '#{conv['id']}'")
+    end
     flash["success"] = "Vous venez de bloquer #{@user[0]["username"]}"
     redirect "/"
   end
@@ -88,8 +90,10 @@ class Matcha < Sinatra::Application
     end
     time = Time.new
     @@client.query("DELETE FROM blocked WHERE user_id = '#{session[:auth]["id"]}' AND user_blocked = '#{params[:id]}'")
-    conv = findConv(params[:id])
-    @@client.query("UPDATE conversations SET view = '1' WHERE id = '#{conv['id']}'")
+    if isMatched?(params[:id])
+      conv = findConv(params[:id])
+      @@client.query("UPDATE conversations SET view = '1' WHERE id = '#{conv['id']}'")
+    end
     flash["success"] = "Vous venez de débloquer #{@user[0]["username"]}"
     redirect "/"
   end

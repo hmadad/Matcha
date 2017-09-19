@@ -37,6 +37,16 @@
   <span id="notnot"></span>
 </div>
 <script type="text/javascript" charset="utf-8">
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
     var objDiv = document.getElementById("corps");
     var user_id = <%= session[:auth]["id"] %>;
     var other_id = <%= @other_user[0]["id"] %>;
@@ -52,7 +62,7 @@
                 {
                     tab = msg.split(',');
                     id = tab[2];
-                    message = tab[1];
+                    message = escapeHtml(tab[1]);
                     status = tab[0]
                     user_for = tab[3]
                     if (status == "msg")

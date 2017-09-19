@@ -9,6 +9,9 @@
           <% end %>
           <%= @result["username"] %>
         </h2>
+        <% if !isOnline?(@result["id"]) %>
+            <p>Dernière connection: <%= @result["last_connection"].to_s[0, 16] %></p>
+        <% end %>
         <hr>
         <p>Nom: <%= @result["firstname"] %></p>
 <p>Prenom: <%= @result["lastname"] %></p>
@@ -22,6 +25,9 @@
 </div>
 <div class="col-md-12">
   <p>Biographie: <%= @result["bio"] %></p>
+</div>
+<div class="col-md-12">
+    <p>Tag(s): <%= @result["interest"] %></p>
 </div>
       <div class="col-md-12">
         <% if isLiked?(@result["id"]) %>

@@ -1,6 +1,9 @@
 <h1>Utilisateurs bloqués</h1>
 <hr>
 <div class="row">
+  <% if @result.empty? %>
+  <h3>Aucun utilisateur bloqué</h3>
+  <% end %>
   <% @result.each do |row| %>
       <% user = findUser(row["user_blocked"]) %>
       <% user = user[0] %>

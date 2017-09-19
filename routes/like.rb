@@ -38,6 +38,9 @@ class Matcha < Sinatra::Application
     if !isConnected?
       redirect "/"
     end
+    if isBlocked?(params[:id])
+      redirect "/"
+    end
     if session[:auth]["id"] == params[:id]
       flash[:danger] = "Vous vous aimez trop, arretez ca !"
       redirect "/"
@@ -76,6 +79,9 @@ class Matcha < Sinatra::Application
   end
   post "/likes/dislike/:id" do
     if !isConnected?
+      redirect "/"
+    end
+    if isBlocked?(params[:id])
       redirect "/"
     end
     if session[:auth]["id"] == params[:id]

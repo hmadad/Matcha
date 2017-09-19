@@ -2,33 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/1/302439.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/2/armu.PNG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/3/i.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/test.erb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Matcha.iml" afterPath="$PROJECT_DIR$/.idea/Matcha.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp.rb" afterPath="$PROJECT_DIR$/myapp.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/blocked.rb" afterPath="$PROJECT_DIR$/routes/blocked.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/home.rb" afterPath="$PROJECT_DIR$/routes/home.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/like.rb" afterPath="$PROJECT_DIR$/routes/like.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/messages.rb" afterPath="$PROJECT_DIR$/routes/messages.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/profile.rb" afterPath="$PROJECT_DIR$/routes/profile.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/search.rb" afterPath="$PROJECT_DIR$/routes/search.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/users.rb" afterPath="$PROJECT_DIR$/routes/users.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.erb" afterPath="$PROJECT_DIR$/views/index.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layout.erb" afterPath="$PROJECT_DIR$/views/layout.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/messages/home_message.erb" afterPath="$PROJECT_DIR$/views/messages/home_message.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/messages/messages.erb" afterPath="$PROJECT_DIR$/views/messages/messages.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/notifications.erb" afterPath="$PROJECT_DIR$/views/notifications.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/search.erb" afterPath="$PROJECT_DIR$/views/search.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/blocked.erb" afterPath="$PROJECT_DIR$/views/users/blocked.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/profile.erb" afterPath="$PROJECT_DIR$/views/users/profile.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/user.erb" afterPath="$PROJECT_DIR$/views/users/user.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,28 +50,8 @@
       <file leaf-file-name="search.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/search.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="58" column="17" lean-forward="true" selection-start-line="51" selection-start-column="12" selection-end-line="58" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myapp.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myapp.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="231" column="134" lean-forward="false" selection-start-line="231" selection-start-column="134" selection-end-line="231" selection-end-column="134" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/search.rb">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="16" selection-end-column="7" />
+              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -99,29 +60,31 @@
       <file leaf-file-name="index.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+            <state relative-caret-position="585">
+              <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="51" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="messages.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/messages.rb">
+      <file leaf-file-name="blocked.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/users/blocked.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="48" column="89" lean-forward="false" selection-start-line="48" selection-start-column="89" selection-end-line="48" selection-end-column="89" />
+            <state relative-caret-position="300">
+              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.erb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/layout.erb">
+      <file leaf-file-name="messages.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="57" column="44" lean-forward="false" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
-              <folding />
+            <state relative-caret-position="990">
+              <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+              <folding>
+                <marker date="1505811519000" expanded="true" signature="3147:3224" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,8 +92,28 @@
       <file leaf-file-name="like.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/like.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="32" selection-end-column="7" />
+            <state relative-caret-position="680">
+              <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/profile.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="557">
+              <caret line="127" column="47" lean-forward="true" selection-start-line="127" selection-start-column="47" selection-end-line="127" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home_message.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/messages/home_message.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="100" lean-forward="true" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="100" />
               <folding />
             </state>
           </provider>
@@ -140,17 +123,7 @@
         <entry file="file://$PROJECT_DIR$/routes/home.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="32" lean-forward="true" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="likes.erb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/likes.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="149" lean-forward="false" selection-start-line="38" selection-start-column="149" selection-end-line="38" selection-end-column="149" />
+              <caret line="7" column="32" lean-forward="false" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -159,8 +132,18 @@
       <file leaf-file-name="blocked.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/blocked.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+            <state relative-caret-position="930">
+              <caret line="62" column="70" lean-forward="true" selection-start-line="62" selection-start-column="70" selection-end-line="62" selection-end-column="70" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/users/user.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -212,24 +195,24 @@
         <option value="$PROJECT_DIR$/routes/init.rb" />
         <option value="$PROJECT_DIR$/routes/notifications.rb" />
         <option value="$PROJECT_DIR$/views/test.erb" />
-        <option value="$PROJECT_DIR$/routes/profile.rb" />
-        <option value="$PROJECT_DIR$/views/users/blocked.erb" />
         <option value="$PROJECT_DIR$/views/users/profile.erb" />
         <option value="$PROJECT_DIR$/views/messages/home_message.erb" />
-        <option value="$PROJECT_DIR$/views/messages/messages.erb" />
         <option value="$PROJECT_DIR$/views/notifications.erb" />
         <option value="$PROJECT_DIR$/routes/users.rb" />
         <option value="$PROJECT_DIR$/routes/search.rb" />
-        <option value="$PROJECT_DIR$/views/users/user.erb" />
         <option value="$PROJECT_DIR$/views/search.erb" />
         <option value="$PROJECT_DIR$/views/layout.erb" />
-        <option value="$PROJECT_DIR$/routes/like.rb" />
         <option value="$PROJECT_DIR$/views/likes.erb" />
-        <option value="$PROJECT_DIR$/routes/messages.rb" />
         <option value="$PROJECT_DIR$/myapp.rb" />
+        <option value="$PROJECT_DIR$/routes/home.rb" />
+        <option value="$PROJECT_DIR$/views/messages/messages.erb" />
+        <option value="$PROJECT_DIR$/routes/messages.rb" />
+        <option value="$PROJECT_DIR$/views/users/blocked.erb" />
         <option value="$PROJECT_DIR$/routes/blocked.rb" />
         <option value="$PROJECT_DIR$/views/index.erb" />
-        <option value="$PROJECT_DIR$/routes/home.rb" />
+        <option value="$PROJECT_DIR$/views/users/user.erb" />
+        <option value="$PROJECT_DIR$/routes/like.rb" />
+        <option value="$PROJECT_DIR$/routes/profile.rb" />
       </list>
     </option>
   </component>
@@ -267,8 +250,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -356,12 +339,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="FullScreen" value="true" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="nodejs_interpreter_path" value="$USER_HOME$/.brew/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.brew/bin/node" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -649,27 +632,26 @@
       <workItem from="1505458050695" duration="2901000" />
       <workItem from="1505638003821" duration="9027000" />
       <workItem from="1505721126458" duration="132000" />
-      <workItem from="1505721326509" duration="16263000" />
+      <workItem from="1505721326509" duration="16286000" />
+      <workItem from="1505809208093" duration="3739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="391602000" />
+    <option name="totallyTimeSpent" value="395364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1384" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21098267" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18713872" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16143012" sideWeight="0.5042644" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16842847" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1529246" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -681,11 +663,13 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -856,18 +840,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/test.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="94" lean-forward="false" selection-start-line="3" selection-start-column="94" selection-end-line="3" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/views/test.erb" />
     <entry file="file://$PROJECT_DIR$/views/users/reset.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,23 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/profile.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="116" column="31" lean-forward="true" selection-start-line="116" selection-start-column="31" selection-end-line="116" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/blocked.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -899,17 +859,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1160">
           <caret line="207" column="47" lean-forward="true" selection-start-line="207" selection-start-column="47" selection-end-line="207" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="54" column="37" lean-forward="true" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
-          <folding>
-            <marker date="1505734531000" expanded="true" signature="2834:2911" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -917,7 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="62" column="38" lean-forward="false" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -933,7 +881,96 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="8" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="44" lean-forward="false" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myapp.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="231" column="134" lean-forward="false" selection-start-line="231" selection-start-column="134" selection-end-line="231" selection-end-column="134" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/likes.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/search.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/messages.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="90" column="7" lean-forward="false" selection-start-line="90" selection-start-column="7" selection-end-line="90" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/search.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/home.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="32" lean-forward="false" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/blocked.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/blocked.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="62" column="70" lean-forward="true" selection-start-line="62" selection-start-column="70" selection-end-line="62" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="51" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/messages/messages.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+          <folding>
+            <marker date="1505811519000" expanded="true" signature="3147:3224" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -947,88 +984,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/users/user.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="44" lean-forward="false" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/search.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="58" column="17" lean-forward="true" selection-start-line="51" selection-start-column="12" selection-end-line="58" selection-end-column="17" />
+        <state relative-caret-position="165">
+          <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/like.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="32" selection-end-column="7" />
+        <state relative-caret-position="680">
+          <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myapp.rb">
+    <entry file="file://$PROJECT_DIR$/routes/profile.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="231" column="134" lean-forward="false" selection-start-line="231" selection-start-column="134" selection-end-line="231" selection-end-column="134" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/messages.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="89" lean-forward="false" selection-start-line="48" selection-start-column="89" selection-end-line="48" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/blocked.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/search.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="16" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/home.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="32" lean-forward="true" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/likes.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="149" lean-forward="false" selection-start-line="38" selection-start-column="149" selection-end-line="38" selection-end-column="149" />
+        <state relative-caret-position="557">
+          <caret line="127" column="47" lean-forward="true" selection-start-line="127" selection-start-column="47" selection-end-line="127" selection-end-column="47" />
           <folding />
         </state>
       </provider>
