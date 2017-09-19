@@ -53,8 +53,10 @@ class Matcha < Sinatra::Application
       orientation = "Femme"
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
-    else
+    elsif  session[:auth]['orientation'] == "Both" && session[:auth]['sexe'] && !session[:auth]['sexe'].empty?
       orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
+    else
+      orientation = "Femme' OR sexe = 'HOMME"
     end
     if params[:order] == "score"
       order = "score"
@@ -123,8 +125,10 @@ class Matcha < Sinatra::Application
       orientation = "Femme"
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
-    else
+    elsif  session[:auth]['orientation'] == "Both" && session[:auth]['sexe'] && !session[:auth]['sexe'].empty?
       orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
+    else
+      orientation = "Femme' OR sexe = 'HOMME"
     end
     if params[:order] == "score"
       order = "score"
