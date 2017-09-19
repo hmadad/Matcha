@@ -72,11 +72,11 @@ class Matcha < Sinatra::Application
     @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND sexe = '#{orientation}' AND sexe = '#{orientation}' AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
       @result << row
     end
-    if (params[:min] < 18 || params[:min] > 120)
+    if (params[:min].to_i < 18 || params[:min].to_i > 120)
       flash[:danger] = "L'age doit etre compris entre 18 ans et 120 ans"
       redirect "/search/18/120/illimite/score/"
     end
-    if (params[:max] < 18 || params[:max] > 120)
+    if (params[:max].to_i < 18 || params[:max].to_i > 120)
       flash[:danger] = "L'age doit etre compris entre 18 ans et 120 ans"
       redirect "/search/18/120/illimite/score/"
     end
