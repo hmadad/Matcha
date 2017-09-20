@@ -101,7 +101,7 @@ class Matcha < Sinatra::Application
       redirect "/users/sign_up"
     end
     if !params[:username].match(/^[a-zA-Z0-9_]+$/) || !(params[:username] =~ /\d/)
-      flash[:danger] = "Le nom d'utilisateur n'est pas valide"
+      flash[:danger] = "Le nom d'utilisateur n'est pas valide (doit contenir au moins 1 chiffre)"
       redirect "/users/sign_up"
     end
     result = []

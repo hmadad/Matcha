@@ -190,6 +190,9 @@ class Matcha < Sinatra::Application
     if nb == "75000"
       nb = "75001"
     end
+    if nb == "13000"
+      nb = "13001"
+    end
     url = "http://api.zippopotam.us/fr/" + nb
     uri = URI(url)
     response = Net::HTTP.get(uri)
