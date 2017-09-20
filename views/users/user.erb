@@ -16,8 +16,8 @@
         <p>Nom: <%= @result["firstname"] %></p>
 <p>Prenom: <%= @result["lastname"] %></p>
 <p>Age: <%= @result["age"] %></p>
-<p>Sexe: <%= (@result["sexe"] && !@result["sexe"] == 0) ?  @result["sexe"] : "Pas défini" %></p>
-<p>Location: <%= (@result["location"] && !@result["location"] == 0) ?  @result["location"] : "Pas défini" %></p>
+<p>Sexe: <%= (@result["sexe"] && !@result["sexe"].empty?) ?  @result["sexe"] : "Pas défini" %></p>
+<p>Location: <%= (@result["location"] && @result["location"] != 0) ?  @result["location"] : "Pas défini" %></p>
 <p>Recherche: <%= (@result["orientation"] && !@result["orientation"].empty?) ? @result["orientation"] : "Pas défini" %></p>
 </div>
 <div class="col-md-3">
@@ -43,7 +43,7 @@
             <% end %>
         <%
             else
-                if session[:auth]["location"] || !session[:auth]["location"] == 0
+                if session[:auth]["location"] || session[:auth]["location"] != 0
         %>
                 <form action="/likes/like/<%= @result["id"] %>" method="POST">
                   <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
