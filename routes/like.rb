@@ -45,7 +45,7 @@ class Matcha < Sinatra::Application
       flash[:danger] = "Vous n'avez pas encore de photo de profile"
       redirect "/"
     end
-    if session[:auth]["id"] == params[:id]
+    if session[:auth]["id"] == params[:id].to_i
       flash[:danger] = "Vous vous aimez trop, arretez ca !"
       redirect "/"
     end
