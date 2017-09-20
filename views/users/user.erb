@@ -41,11 +41,17 @@
             %>
                 <a href="/messages/<%= @conv['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(@conv['id']) if countMsg(@conv['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
             <% end %>
-        <% else %>
-            <form action="/likes/like/<%= @result["id"] %>" method="POST">
-              <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-            </form>
-        <% end %>
+        <%
+            else
+                if !session[:auth]["location"] || session[:auth]["profile"].empty?
+        %>
+                <form action="/likes/like/<%= @result["id"] %>" method="POST">
+                  <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                </form>
+        <%
+                end
+            end
+        %>
       </div>
       <div class="row" style="margin-top: 10px;">
         <div class="col-md-3"><img class="rounded mx-auto d-block" src="<%= @result["image2"] %>" alt="" style="width: 100%; height: 100%"></div>
