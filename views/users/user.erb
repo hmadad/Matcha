@@ -15,7 +15,7 @@
         <hr>
         <p>Nom: <%= @result["firstname"] %></p>
 <p>Prenom: <%= @result["lastname"] %></p>
-<p>Age: <%= @result["age"] %></p>
+<p>Age: <%= (@result["age"] && @result["age"] != 0) ?  @result["age"] : "Pas défini" %></p>
 <p>Sexe: <%= (@result["sexe"] && !@result["sexe"].empty?) ?  @result["sexe"] : "Pas défini" %></p>
 <p>Location: <%= (@result["location"] && @result["location"] != 0) ?  @result["location"] : "Pas défini" %></p>
 <p>Recherche: <%= (@result["orientation"] && !@result["orientation"].empty?) ? @result["orientation"] : "Pas défini" %></p>

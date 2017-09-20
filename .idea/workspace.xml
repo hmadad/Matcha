@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a82cd2a-3a65-4035-b460-cc5c4949145b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/profile.erb" afterPath="$PROJECT_DIR$/views/users/profile.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/profile.rb" afterPath="$PROJECT_DIR$/routes/profile.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/users/user.erb" afterPath="$PROJECT_DIR$/views/users/user.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,18 +56,18 @@
       <file leaf-file-name="users.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
+            <state relative-caret-position="-225">
               <caret line="103" column="96" lean-forward="false" selection-start-line="103" selection-start-column="96" selection-end-line="103" selection-end-column="96" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="profile.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/profile.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="119" column="31" lean-forward="false" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
+            <state relative-caret-position="465">
+              <caret line="51" column="21" lean-forward="true" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -83,10 +83,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="profile.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/users/profile.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
+            <state relative-caret-position="426">
               <caret line="125" column="4" lean-forward="false" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#label#0;n#div#4;n#form#0;n#!!top" expanded="true" />
@@ -122,8 +122,8 @@
       <file leaf-file-name="user.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/users/user.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="80" lean-forward="false" selection-start-line="45" selection-start-column="80" selection-end-line="45" selection-end-column="80" />
+            <state relative-caret-position="240">
+              <caret line="16" column="41" lean-forward="true" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -205,7 +205,6 @@
         <option value="$PROJECT_DIR$/routes/blocked.rb" />
         <option value="$PROJECT_DIR$/views/notifications.erb" />
         <option value="$PROJECT_DIR$/views/users/blocked.erb" />
-        <option value="$PROJECT_DIR$/routes/profile.rb" />
         <option value="$PROJECT_DIR$/routes/like.rb" />
         <option value="$PROJECT_DIR$/views/messages/messages.erb" />
         <option value="$PROJECT_DIR$/routes/search.rb" />
@@ -217,8 +216,9 @@
         <option value="$PROJECT_DIR$/views/messages/home_message.erb" />
         <option value="$PROJECT_DIR$/views/likes.erb" />
         <option value="$PROJECT_DIR$/views/search.erb" />
-        <option value="$PROJECT_DIR$/views/users/user.erb" />
         <option value="$PROJECT_DIR$/views/users/profile.erb" />
+        <option value="$PROJECT_DIR$/views/users/user.erb" />
+        <option value="$PROJECT_DIR$/routes/profile.rb" />
       </list>
     </option>
   </component>
@@ -658,12 +658,12 @@
       <workItem from="1505721126458" duration="132000" />
       <workItem from="1505721326509" duration="16286000" />
       <workItem from="1505809208093" duration="12176000" />
-      <workItem from="1505896463499" duration="9882000" />
+      <workItem from="1505896463499" duration="10583000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="413683000" />
+    <option name="totallyTimeSpent" value="414384000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1139" height="1440" extended-state="0" />
@@ -962,22 +962,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="103" column="96" lean-forward="false" selection-start-line="103" selection-start-column="96" selection-end-line="103" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/profile.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="119" column="31" lean-forward="false" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myapp.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1026,23 +1010,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/user.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="80" lean-forward="false" selection-start-line="45" selection-start-column="80" selection-end-line="45" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/users/profile.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
+        <state relative-caret-position="426">
           <caret line="125" column="4" lean-forward="false" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
           <folding>
             <element signature="n#style#0;n#span#0;n#label#0;n#div#4;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/user.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="41" lean-forward="true" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-225">
+          <caret line="103" column="96" lean-forward="false" selection-start-line="103" selection-start-column="96" selection-end-line="103" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/profile.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="51" column="21" lean-forward="true" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
