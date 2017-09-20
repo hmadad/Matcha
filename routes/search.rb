@@ -72,11 +72,11 @@ class Matcha < Sinatra::Application
     @@client.query("SELECT * FROM users WHERE id NOT LIKE '#{session[:auth]['id']}' AND (sexe = '#{orientation}') AND age BETWEEN '#{params[:min]}' AND '#{params[:max]}' ORDER BY #{order} DESC").each do |row|
       @result << row
     end
-    if (params[:min].to_i < 18 || params[:min].to_i > 120)
+    if !params[:min] || (params[:min].to_i < 18 || params[:min].to_i > 120)
       flash[:danger] = "L'age doit etre compris entre 18 ans et 120 ans"
       redirect "/search/18/120/illimite/score/"
     end
-    if (params[:max].to_i < 18 || params[:max].to_i > 120)
+    if !params[:man] || (params[:max].to_i < 18 || params[:max].to_i > 120)
       flash[:danger] = "L'age doit etre compris entre 18 ans et 120 ans"
       redirect "/search/18/120/illimite/score/"
     end
@@ -205,19 +205,19 @@ class Matcha < Sinatra::Application
     if !isConnected?
       redirect "/"
     end
-    if params[:search][0] == '#'
+    if !params[:search] || params[:search][0] == '#'
       params[:search] = params[:search][1..params[:search].length]
     end
-    if params[:min].empty?
+    if !params[:min] || params[:min].empty?
       params[:min] = 18
     end
-    if params[:max].empty?
+    if !params[:max] || params[:max].empty?
       params[:max] = 120
     end
-    if params[:km].empty?
+    if !params[:km] || params[:km].empty?
       params[:km] = "illimite"
     end
-    if params[:order].empty?
+    if !params[:order] || params[:order].empty?
       params[:order] = "score"
     end
     redirect "/search/#{params[:min]}/#{params[:max]}/#{params[:km]}/#{params[:order]}/#{params[:search]}"
