@@ -43,7 +43,7 @@
             <% end %>
         <%
             else
-                if !session[:auth]["location"] || session[:auth]["profile"].empty?
+                if !session[:auth]["location"] || !session[:auth]["location"] == 0
         %>
                 <form action="/likes/like/<%= @result["id"] %>" method="POST">
                   <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
