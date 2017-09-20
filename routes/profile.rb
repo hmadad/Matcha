@@ -127,12 +127,18 @@ class Matcha < Sinatra::Application
       flash[:danger] = "Orientation invalide"
       redirect "/users/profile"
     end
-    if params[:bio].length > 255
-      flash[:danger] = "Biographie trop longue"
-      redirect "/users/profile"
+    if params[:bio]
+      params[:bio].strip!
+      if params[:bio].length > 255
+        flash[:danger] = "Biographie trop longue"
+        redirect "/users/profile"
+      end
+      if params[:bio].strip.empty?
+        params[:bio] = nil
+      end
     end
     if !params[:interest].nil?
-      split = params[:interest].split(', ')
+      split = params[:interest].split(',')
       i = 0
       split.each do |row|
         row.strip!
@@ -145,9 +151,12 @@ class Matcha < Sinatra::Application
             flash[:danger] = "le tag ne peu pas contenir de '#' sauf pour commencer le tag"
             redirect "/users/profile"
           end
+          if row.empty?
+            split[i] = nil
+          end
           result = []
-          @@client.query("SELECT * FROM tags WHERE name = '#{@@coder.encode(row)}'").each do |row|
-            result << row
+          @@client.query("SELECT * FROM tags WHERE name = '#{@@coder.encode(row)}'").each do |row2|
+            result << row2
           end
           if result.empty?
             time = Time.new

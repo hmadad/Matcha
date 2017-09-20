@@ -156,9 +156,9 @@ class Matcha < Sinatra::Application
       @@client.query("UPDATE users SET remember_token = '#{token}', reset_date ='#{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id = '#{result[0]["id"]}'")
       flash[:success] = "Un email vous a été envoyé afin de reinitialisé votre mot de passe"
       Pony.mail({
-                    :to => params[:lastname],
+                    :to => params[:email],
                     :from => 'support@matcha.fr',
-                    :subject => 'Matcha - Confirmation du compte',
+                    :subject => 'Matcha - Mot de passe oublié',
                     :body => "Bonjour, afin de reinitialiser votre mot de passe, merci de vous rendre sur ce lien: http://localhost:3000/users/forget/#{result[0]["id"]}/#{token}"
                 })
       redirect "/users/sign_in"
@@ -172,7 +172,7 @@ class Matcha < Sinatra::Application
       redirect "/"
     end
     if params[:password] != params[:password_conf]
-
+      flash[:danger] = "Les mots de passe ne sont pas identiques"
       redirect "/users/forget/#{params[:id]}/#{params[:token]}"
     end
     result = []
@@ -181,8 +181,10 @@ class Matcha < Sinatra::Application
       result << row
     end
     if !result.empty?
-      @@client.query("UPDATE users SET password = '#{Digest::SHA256.hexdigest(coder.encode(params[:password]))}', reset_date = NULL, remember_token = NULL")
+      @@client.query("UPDATE users SET password = '#{Digest::SHA256.hexdigest(@@coder.encode(params[:password]))}', reset_date = NULL, remember_token = NULL WHERE id = '#{params[:id]}'")
       flash[:success] = "Votre mot de passe a été reinitialisé avec succès"
+    else
+      flash[:danger] = "L'utilisateur n'existe pas"
     end
     redirect "/"
   end
