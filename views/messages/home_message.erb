@@ -32,7 +32,7 @@
                         <% end %>
                         <p class="pull-left" style="color: white"><b><%= distance %></b></p>
                         <a data-toggle="modal" href="#myModal<%= @result["id"] %>">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="sendblk(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
                           </button>
                         </a>
@@ -81,10 +81,12 @@
                       Etes vous sur de vouloir bloquer <span style="color: green;"><b><%= @result["username"] %></b></span>?
                     </div>
                     <div class="modal-footer">
-                      <form action="/blocked/<%= @result["id"] %>" method="POST">
-                        <button type="submit" class="btn btn-primary">Oui</button>
+                      <form action="/reported/<%= row["id"] %>" method="POST">
+                        <button type="submit" class="btn btn-danger pull-left" onclick="sendblk(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Reporter et bloquer</button>
                       </form>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                      <form action="/blocked/<%= row["id"] %>" method="POST">
+                        <button type="submit" class="btn btn-primary" onclick="sendblk(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Bloquer</button>
+                      </form>
                     </div>
                   </div>
                 </div>

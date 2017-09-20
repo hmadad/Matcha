@@ -45,9 +45,6 @@ class Matcha < Sinatra::Application
     if !isConnected?
       redirect "/"
     end
-    if isBlocked?(params[:id])
-      redirect :"/messages"
-    end
     @result = []
     @@client.query("SELECT * FROM conversations WHERE id = '#{params[:id]}' AND view = '1'").each do |row|
       @result << row
@@ -66,6 +63,9 @@ class Matcha < Sinatra::Application
       @other_user = findUser(@result[0]["user_id2"].to_i)
     else
       @other_user = findUser(@result[0]["user_id1"].to_i)
+    end
+    if isBlocked?(@other_user[0]["id"])
+      redirect :"/messages"
     end
     if !request.websocket?
       erb :"messages/messages"

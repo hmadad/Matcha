@@ -11,7 +11,7 @@ class Matcha < Sinatra::Application
     elsif session[:auth]['orientation'] == "Homme"
       orientation = "Homme"
     elsif  session[:auth]['orientation'] == "Both" && session[:auth]['sexe'] && !session[:auth]['sexe'].empty?
-      orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}"
+      orientation = "Femme' OR sexe = 'HOMME') AND (orientation = '#{session[:auth]['sexe']}' OR orientation = 'Both"
     else
       orientation = "Femme' OR sexe = 'HOMME"
     end

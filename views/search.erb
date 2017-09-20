@@ -69,7 +69,7 @@
                       <b><%= distance %></b>
                     </p>
                     <a data-toggle="modal" href="#myModal<%= row["id"] %>">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="sendblk(<%= session[:auth]["id"] %>, <%= row["id"] %>)">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <i class="fa fa-ban" aria-hidden="true" style="color: red"></i>
                       </button>
                     </a>
@@ -126,12 +126,11 @@
                       </div>
                       <div class="modal-footer">
                         <form action="/reported/<%= row["id"] %>" method="POST">
-                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Reporter et bloquer</button>
+                          <button type="submit" class="btn btn-danger pull-left" onclick="sendblk(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Reporter et bloquer</button>
                         </form>
                         <form action="/blocked/<%= row["id"] %>" method="POST">
-                          <button type="submit" class="btn btn-primary">Bloquer</button>
+                          <button type="submit" class="btn btn-primary" onclick="sendblk(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Bloquer</button>
                         </form>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
                       </div>
                     </div>
                   </div>

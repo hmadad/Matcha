@@ -41,6 +41,10 @@ class Matcha < Sinatra::Application
     if isBlocked?(params[:id])
       redirect "/"
     end
+    if !session[:auth]["profile"] || session[:auth]["profile"].empty?
+      flash[:danger] = "Vous n'avez pas encore de photo de profile"
+      redirect "/"
+    end
     if session[:auth]["id"] == params[:id]
       flash[:danger] = "Vous vous aimez trop, arretez ca !"
       redirect "/"
@@ -82,6 +86,10 @@ class Matcha < Sinatra::Application
       redirect "/"
     end
     if isBlocked?(params[:id])
+      redirect "/"
+    end
+    if !session[:auth]["profile"] || session[:auth]["profile"].empty?
+      flash[:danger] = "Vous n'avez pas encore de photo de profile"
       redirect "/"
     end
     if session[:auth]["id"] == params[:id]
