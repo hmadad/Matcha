@@ -62,7 +62,7 @@
                         <p><b style="color: green"><%= comun.join(', ') %> </b><%= reste.join(', ') %></p>
                         <% if isLiked?(@result["id"]) %>
                             <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
-                              <button type="submit" class="btn btn-danger pull-left" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                              <button type="submit" class="btn btn-danger pull-left" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                               <a href="messages/<%= row['id'] %>/check"><button type="button" class="btn btn-primary pull-right"><span id="cnt<%= @result["id"] %>" style="color: red;"><%= countMsg(row['id']) if countMsg(row['id']) > 0 %></span> Discuter <i class="fa fa-comments" aria-hidden="true"></i></button></a>
                             </form>
                         <% end %>

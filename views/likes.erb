@@ -59,7 +59,7 @@
                       <% end %>
                       <% if isLiked?(@user["id"]) %>
                           <form action="/likes/dislike/<%= @user["id"] %>" method="POST">
-                            <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @user["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-danger" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @user["id"] %>)" <% end %>>Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                           </form>
                       <% end %>
                     </div>

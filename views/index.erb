@@ -60,11 +60,11 @@
                           <% end %>
                           <% if isLiked?(row["id"]) %>
                               <form action="/likes/dislike/<%= row["id"] %>" method="POST">
-                                <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-danger" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)" <% end %>>Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                               </form>
                           <% else %>
                               <form action="/likes/like/<%= row["id"] %>" method="POST">
-                                <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= row["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
                               </form>
                           <% end %>
                         </div>

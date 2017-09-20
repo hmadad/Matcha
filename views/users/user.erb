@@ -32,7 +32,7 @@
       <div class="col-md-12">
         <% if isLiked?(@result["id"]) %>
             <form action="/likes/dislike/<%= @result["id"] %>" method="POST">
-              <button type="submit" class="btn btn-danger" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+              <button type="submit" class="btn btn-danger" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Dislike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
             </form>
             <%
                 if isMatched?(@result["id"])
@@ -43,7 +43,7 @@
             <% end %>
         <% else %>
             <form action="/likes/like/<%= @result["id"] %>" method="POST">
-              <button type="submit" class="btn btn-success" onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+              <button type="submit" class="btn btn-success" <% if session[:auth]["profile"] && !session[:auth]["profile"].empty? %> onclick="sendnot(<%= session[:auth]["id"] %>, <%= @result["id"] %>)" <% end %>>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
             </form>
         <% end %>
       </div>
